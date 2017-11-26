@@ -1,6 +1,8 @@
 # vue-confetti
 
-A Vue component for dropping confetti :tada:
+[![npm version](https://badge.fury.io/js/vue-confetti.svg)](https://badge.fury.io/js/vue-confetti)
+
+:tada: A Vue component for dropping confetti :tada:
 
 ## Installation
 
