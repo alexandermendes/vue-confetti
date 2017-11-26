@@ -4,19 +4,7 @@ class Particle {
    * @param {options} opts
    *   The particle options
    */
-  setup ({
-    ctx,
-    W,
-    H,
-    colors,
-    wind,
-    windPosCoef,
-    windSpeedMax,
-    count,
-    shape,
-    minZ,
-    maxZ
-  }) {
+  setup ({ ctx, W, H, colors, wind, windPosCoef, windSpeedMax, count, shape }) {
     this.ctx = ctx
     this.W = W
     this.H = H
