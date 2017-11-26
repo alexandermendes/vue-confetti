@@ -1,9 +1,10 @@
-const resolve = require('path').resolve
+const path = require('path')
+const webpack = require('webpack')
 
 module.exports = {
-  entry: resolve(__dirname, 'src', 'index.js'),
+  entry: path.resolve(__dirname, 'src', 'index.js'),
   output: {
-    path: resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'vue-confetti.js',
     library: 'vue-confetti',
     libraryTarget: 'umd'
@@ -16,5 +17,8 @@ module.exports = {
         exclude: /node_modules/
       }
     ]
-  }
+  },
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin()
+  ]
 }
