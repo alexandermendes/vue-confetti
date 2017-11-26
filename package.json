@@ -1,7 +1,7 @@
 {
   "name": "vue-confetti",
   "description": "A Vue component for dropping confetti.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "main": "src/index.js",
   "author": "Alex Mendes <alexanderhmendes@gmail.com>",
   "license": "MIT",
