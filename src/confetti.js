@@ -3,9 +3,9 @@ import Particles from './particles'
 class Confetti {
   constructor () {
     this.ctx = null
-    this.W = null
-    this.H = null
-    this.confetti = null
+    this.W = 0
+    this.H = 0
+    this.particles = {}
     this.droppedCount = 0
     this.particlesPerFrame = 1.5
     this.wind = 0
@@ -42,7 +42,7 @@ class Confetti {
    * Create the confetti particles.
    */
   createParticles () {
-    this.confetti = new Particles({
+    this.particles = new Particles({
       ctx: this.ctx,
       W: this.W,
       H: this.H,
@@ -64,6 +64,8 @@ class Confetti {
     this.canvas.style.position = 'fixed'
     this.canvas.style.pointerEvents = 'none'
     this.canvas.style.top = 0
+    this.canvas.style.width = '100vw'
+    this.canvas.style.height = '100vh'
     this.canvas.id = 'confetti-canvas'
     document.querySelector('body').appendChild(this.canvas)
   }
@@ -77,8 +79,10 @@ class Confetti {
     }
     this.createContext()
     this.createParticles()
+    this.updateDimensions()
     this.particlesPerFrame = this.maxParticlesPerFrame
     requestAnimationFrame(this.mainLoop.bind(this))
+    window.addEventListener('resize', this.updateDimensions.bind(this))
   }
 
   /**
@@ -87,28 +91,35 @@ class Confetti {
   stop () {
     this.particlesPerFrame = 0
     this.canvas.remove()
+    window.removeEventListener('resize', this.updateDimensions)
+  }
+
+  /**
+   * Update the dimensions, if necessary.
+   */
+  updateDimensions () {
+    if (this.W !== window.innerWidth || this.H !== window.innerHeight) {
+      this.W = this.particles.opts.W = this.canvas.width = window.innerWidth
+      this.H = this.particles.opts.H = this.canvas.height = window.innerHeight
+    }
   }
 
   /**
    * Run the main animation loop.
    */
   mainLoop (time) {
-    if (this.W !== window.innerWidth || this.H !== window.innerHeight) {
-      this.W = this.canvas.width = window.innerWidth
-      this.H = this.canvas.height = window.innerHeight
-    } else {
-      this.ctx.setTransform(1, 0, 0, 1, 0, 0)
-      this.ctx.clearRect(0, 0, this.W, this.H)
-    }
+    this.updateDimensions()
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0)
+    this.ctx.clearRect(0, 0, this.W, this.H)
     this.windSpeed = Math.sin(time / 8000) * this.windSpeedMax
     this.wind += this.windChange
     while (this.droppedCount < this.particlesPerFrame) {
       this.droppedCount += 1
-      this.confetti.add()
+      this.particles.add()
     }
     this.droppedCount -= this.particlesPerFrame
-    this.confetti.update()
-    this.confetti.draw()
+    this.particles.update()
+    this.particles.draw()
     requestAnimationFrame(this.mainLoop.bind(this))
   }
 }

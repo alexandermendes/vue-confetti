@@ -1,8 +1,6 @@
 class Particle {
   setup ({ ctx, W, H, colors, wind, windPosCoef, windSpeedMax, count }) {
     this.ctx = ctx
-    this.W = W
-    this.H = H
     this.wind = wind
     this.windPosCoef = windPosCoef
     this.windSpeedMax = windSpeedMax

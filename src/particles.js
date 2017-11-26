@@ -1,10 +1,10 @@
 import Particle from './particle'
 
 class Particles {
-  constructor (particleOpts) {
+  constructor (opts) {
     this.items = []
     this.pool = []
-    this.particleOpts = particleOpts
+    this.opts = opts
   }
 
   update () {
@@ -23,9 +23,9 @@ class Particles {
 
   add () {
     if (this.pool.length > 0) {
-      this.items.push(this.pool.pop().setup(this.particleOpts))
+      this.items.push(this.pool.pop().setup(this.opts))
     } else {
-      this.items.push(new Particle().setup(this.particleOpts))
+      this.items.push(new Particle().setup(this.opts))
     }
   }
 }
