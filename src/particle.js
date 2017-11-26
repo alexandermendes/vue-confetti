@@ -1,5 +1,22 @@
 class Particle {
-  setup ({ ctx, W, H, colors, wind, windPosCoef, windSpeedMax, count, shape , minZ, maxZ }) {
+  /**
+   * Setup the particle.
+   * @param {options} opts
+   *   The particle options
+   */
+  setup ({
+    ctx,
+    W,
+    H,
+    colors,
+    wind,
+    windPosCoef,
+    windSpeedMax,
+    count,
+    shape,
+    minZ,
+    maxZ
+  }) {
     this.ctx = ctx
     this.W = W
     this.H = H
@@ -20,33 +37,66 @@ class Particle {
     return this
   }
 
+  /**
+   * Return a random number.
+   * @param {Number} min
+   *   The minimum number.
+   * @param {Number} max
+   *   The maximum number.
+   */
   randI (min, max = min + (min = 0)) {
     return (Math.random() * (max - min) + min) | 0
   }
 
+  /**
+   * Return a random number with a minimum of one.
+   * @param {Number} min
+   *   The minimum number.
+   * @param {Number} max
+   *   The maximum number.
+   */
   rand (min = 1, max = min + (min = 0)) {
     return Math.random() * (max - min) + min
   }
 
+  /**
+   * Update the particle.
+   */
   update () {
-    this.tiltAngle += this.tiltAngleIncremental * (Math.cos(this.wind + (this.d + this.x + this.y) * this.windPosCoef) * 0.2 + 1)
+    this.tiltAngle += (this.tiltAngleIncremental * (
+      Math.cos(this.wind + (this.d + this.x + this.y) * this.windPosCoef)
+      * 0.2 + 1
+    ))
     this.y += (Math.cos(this.angle + this.d) + 3 + this.r / 2) / 2
     this.x += Math.sin(this.angle)
-    this.x += Math.cos(this.wind + (this.d + this.x + this.y) * this.windPosCoef) * this.windSpeedMax
-    this.y += Math.sin(this.wind + (this.d + this.x + this.y) * this.windPosCoef) * this.windSpeedMax
+    this.x += Math.cos(
+      this.wind + (this.d + this.x + this.y) * this.windPosCoef
+    ) * this.windSpeedMax
+    this.y += Math.sin(
+      this.wind + (this.d + this.x + this.y) * this.windPosCoef
+    ) * this.windSpeedMax
     this.tilt = (Math.sin(this.tiltAngle - (this.count / 3))) * 15
     return this.y > this.H // returns true if particle is past bottom
   }
 
+  /**
+   * Draw a round particle.
+   */
   drawCircle () {
     this.ctx.arc(0, 0, (this.r / 2), 0, Math.PI * 2, false)
     this.ctx.fill()
   }
 
+  /**
+   * Draw a rectangular particle.
+   */
   drawRect () {
     this.ctx.fillRect(0, 0, this.r, this.r / 2)
   }
 
+  /**
+   * Draw a heart-shaped particle.
+   */
   drawHeart () {
     const curveTo = (cp1x, cp1y, cp2x, cp2y, x, y) => {
       this.ctx.bezierCurveTo(
@@ -68,6 +118,9 @@ class Particle {
     this.ctx.fill()
   }
 
+  /**
+   * Draw a particle.
+   */
   draw () {
     this.ctx.fillStyle = this.color
     this.ctx.beginPath()
