@@ -40,6 +40,7 @@ npm install vue-confetti --save
 
 ## Configuration
 
-| Property | type  | description          |
-|----------|-------|----------------------|
-| colors   | Array | The confetti colors. |
+| Property | type   | description                                                     |
+|----------|--------|-----------------------------------------------------------------|
+| colors   | Array  | The confetti colors.                                            |
+| shape    | String | The shape of the confetti (`'circle'`, `'rect'`, or `'heart'`). |

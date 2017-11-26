@@ -14,6 +14,7 @@ class Confetti {
     this.windChange = 0.01
     this.windPosCoef = 0.002
     this.maxParticlesPerFrame = 2 // max particles dropped per frame
+    this.shape = opts.shape || 'circle'
     this.colors = {
       options: opts.colors || [
         'DodgerBlue',
@@ -49,7 +50,8 @@ class Confetti {
       wind: this.wind,
       windPosCoef: this.windPosCoef,
       windSpeedMax: this.windSpeedMax,
-      count: 0
+      count: 0,
+      shape: this.shape
     })
   }
 

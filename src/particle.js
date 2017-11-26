@@ -1,20 +1,20 @@
 class Particle {
-  setup ({ ctx, W, H, colors, wind, windPosCoef, windSpeedMax, count }) {
+  setup ({ ctx, W, H, colors, wind, windPosCoef, windSpeedMax, count, shape }) {
     this.ctx = ctx
     this.wind = wind
+    this.shape = shape
     this.windPosCoef = windPosCoef
     this.windSpeedMax = windSpeedMax
     this.x = this.rand(-35, W + 35)
     this.y = this.rand(-30, -35)
-    this.r = this.rand(10, 30)
     this.d = this.rand(150) + 10 // density
+    this.r = this.rand(10, 30)
     this.color = colors.color // get the next color
     this.tilt = this.randI(10)
     this.tiltAngleIncremental = (this.rand(0.08) + 0.04) * (this.rand() < 0.5 ? -1 : 1)
     this.tiltAngle = 0
     this.angle = this.rand(Math.PI * 2)
     this.count = count++
-    console.log(this)
     return this
   }
 
@@ -36,6 +36,36 @@ class Particle {
     return this.y > this.H // returns true if particle is past bottom
   }
 
+  drawCircle () {
+    this.ctx.arc(0, 0, (this.r / 2), 0, Math.PI * 2, false)
+    this.ctx.fill()
+  }
+
+  drawRect () {
+    this.ctx.fillRect(0, 0, this.r, this.r / 2)
+  }
+
+  drawHeart () {
+    const curveTo = (cp1x, cp1y, cp2x, cp2y, x, y) => {
+      this.ctx.bezierCurveTo(
+        cp1x / this.r * 2,
+        cp1y / this.r * 2,
+        cp2x / this.r * 2,
+        cp2y / this.r * 2,
+        x / this.r * 2,
+        y / this.r * 2
+      )
+    }
+    this.ctx.moveTo(37.5 / this.r, 20 / this.r)
+    curveTo(75, 37, 70, 25, 50, 25)
+    curveTo(20, 25, 20, 62.5, 20, 62.5)
+    curveTo(20, 80, 40, 102, 75, 120)
+    curveTo(110, 102, 130, 80, 130, 62.5)
+    curveTo(130, 62.5, 130, 25, 100, 25)
+    curveTo(85, 25, 75, 37, 75, 40)
+    this.ctx.fill()
+  }
+
   draw () {
     this.ctx.fillStyle = this.color
     this.ctx.beginPath()
@@ -45,8 +75,13 @@ class Particle {
       0, 1,
       this.x, this.y // set the origin
     )
-    this.ctx.arc(0, 0, (this.r / 2), 0, Math.PI * 2, false)
-    this.ctx.fill()
+    if (this.shape === 'circle') {
+      this.drawCircle()
+    } else if (this.shape === 'rect') {
+      this.drawRect()
+    } else if (this.shape === 'heart') {
+      this.drawHeart()
+    }
   }
 }
 
