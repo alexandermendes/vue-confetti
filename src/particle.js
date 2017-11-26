@@ -14,6 +14,7 @@ class Particle {
     this.tiltAngle = 0
     this.angle = this.rand(Math.PI * 2)
     this.count = count++
+    console.log(this)
     return this
   }
 

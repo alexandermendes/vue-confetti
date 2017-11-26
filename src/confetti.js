@@ -1,7 +1,7 @@
 import Particles from './particles'
 
 class Confetti {
-  constructor () {
+  constructor (opts = {}) {
     this.ctx = null
     this.W = 0
     this.H = 0
@@ -14,9 +14,8 @@ class Confetti {
     this.windChange = 0.01
     this.windPosCoef = 0.002
     this.maxParticlesPerFrame = 2 // max particles dropped per frame
-    this.count = 0
     this.colors = {
-      options: [
+      options: opts.colors || [
         'DodgerBlue',
         'OliveDrab',
         'Gold',
@@ -50,7 +49,7 @@ class Confetti {
       wind: this.wind,
       windPosCoef: this.windPosCoef,
       windSpeedMax: this.windSpeedMax,
-      count: this.count
+      count: 0
     })
   }
 
@@ -77,6 +76,7 @@ class Confetti {
     if (!this.ctx) {
       this.createContext()
     }
+    this.createWind()
     this.createParticles()
     this.updateDimensions()
     this.particlesPerFrame = this.maxParticlesPerFrame
@@ -110,7 +110,7 @@ class Confetti {
     this.ctx.setTransform(1, 0, 0, 1, 0, 0)
     this.ctx.clearRect(0, 0, this.W, this.H)
     this.windSpeed = Math.sin(time / 8000) * this.windSpeedMax
-    this.wind += this.windChange
+    this.wind = this.particles.opts.wind += this.windChange
     while (this.droppedCount < this.particlesPerFrame) {
       this.droppedCount += 1
       this.particles.add()

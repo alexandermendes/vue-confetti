@@ -37,3 +37,9 @@ npm install vue-confetti --save
   }
 </script>
 ```
+
+## Configuration
+
+| Property | type  | description          |
+|----------|-------|----------------------|
+| colors   | Array | The confetti colors. |
