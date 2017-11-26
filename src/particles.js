@@ -1,10 +1,10 @@
 import Particle from './particle'
 
 class Particles {
-  constructor (confettoOpts) {
+  constructor (particleOpts) {
     this.items = []
     this.pool = []
-    this.confettoOpts = confettoOpts
+    this.particleOpts = particleOpts
   }
 
   update () {
