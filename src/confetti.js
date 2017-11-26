@@ -74,10 +74,9 @@ class Confetti {
    * Start dropping confetti.
    */
   start () {
-    if (this.canvas) {
-      this.stop()
+    if (!this.ctx) {
+      this.createContext()
     }
-    this.createContext()
     this.createParticles()
     this.updateDimensions()
     this.particlesPerFrame = this.maxParticlesPerFrame
@@ -90,7 +89,6 @@ class Confetti {
    */
   stop () {
     this.particlesPerFrame = 0
-    this.canvas.remove()
     window.removeEventListener('resize', this.updateDimensions)
   }
 
