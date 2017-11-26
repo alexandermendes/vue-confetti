@@ -4,6 +4,8 @@
 
 :tada: A Vue component for dropping confetti :tada:
 
+![Example animation](example.gif)
+
 ## Installation
 
 ```
