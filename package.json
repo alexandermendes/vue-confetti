@@ -2,9 +2,15 @@
   "name": "vue-confetti",
   "description": "A Vue component for dropping confetti.",
   "version": "0.2.0",
-  "main": "src/index.js",
+  "main": "dist/vue-confetti.js",
   "author": "Alex Mendes <alexanderhmendes@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint src",
+    "clean": "rimraf dist",
+    "build": "npm run clean && webpack --config webpack.config.js",
+    "prepublish": "npm run lint && npm run build"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/alexandermendes/vue-confetti.git"
@@ -12,5 +18,20 @@
   "bugs": {
     "url": "https://github.com/alexandermendes/vue-confetti/issues"
   },
-  "homepage": "https://github.com/alexandermendes/vue-confetti"
+  "homepage": "https://github.com/alexandermendes/vue-confetti",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.2",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "eslint": "^4.12.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "rimraf": "^2.6.2",
+    "webpack": "^3.8.1"
+  }
 }

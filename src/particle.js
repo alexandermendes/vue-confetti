@@ -18,7 +18,9 @@ class Particle {
     this.r = this.rand(10, 30)
     this.color = colors.color // get the next color
     this.tilt = this.randI(10)
-    this.tiltAngleIncremental = (this.rand(0.08) + 0.04) * (this.rand() < 0.5 ? -1 : 1)
+    this.tiltAngleIncremental = (
+      (this.rand(0.08) + 0.04) * (this.rand() < 0.5 ? -1 : 1)
+    )
     this.tiltAngle = 0
     this.angle = this.rand(Math.PI * 2)
     this.count = count++
@@ -52,8 +54,8 @@ class Particle {
    */
   update () {
     this.tiltAngle += (this.tiltAngleIncremental * (
-      Math.cos(this.wind + (this.d + this.x + this.y) * this.windPosCoef)
-      * 0.2 + 1
+      Math.cos(this.wind + (this.d + this.x + this.y) * this.windPosCoef) *
+      0.2 + 1
     ))
     this.y += (Math.cos(this.angle + this.d) + 3 + this.r / 2) / 2
     this.x += Math.sin(this.angle)
