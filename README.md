@@ -44,7 +44,18 @@ npm install vue-confetti --save
 
 ## Configuration
 
+The following options can be passed to `$confetti.start()`:
+
 | Property | type   | description                                                     |
 |----------|--------|-----------------------------------------------------------------|
 | colors   | Array  | The confetti colors.                                            |
 | shape    | String | The shape of the confetti (`'circle'`, `'rect'`, or `'heart'`). |
+
+### Example
+
+``` js
+$confetti.start({
+  shape: 'heart',
+  colors: ['red', 'pink', '#ba0000']
+})
+```

@@ -1,7 +1,7 @@
 import Particles from './particles'
 
 class Confetti {
-  constructor (opts = {}) {
+  constructor () {
     this.ctx = null
     this.W = 0
     this.H = 0
@@ -14,44 +14,42 @@ class Confetti {
     this.windChange = 0.01
     this.windPosCoef = 0.002
     this.maxParticlesPerFrame = 2 // max particles dropped per frame
-    this.shape = opts.shape || 'circle'
-    this.colors = {
-      options: opts.colors || [
-        'DodgerBlue',
-        'OliveDrab',
-        'Gold',
-        'pink',
-        'SlateBlue',
-        'lightblue',
-        'Violet',
-        'PaleGreen',
-        'SteelBlue',
-        'SandyBrown',
-        'Chocolate',
-        'Crimson'
-      ],
-      index: 0,
-      step: 10,
-      get color () {
-        return this.options[((this.index++) / this.step | 0) % this.options.length]
-      }
-    }
   }
 
   /**
    * Create the confetti particles.
    */
-  createParticles () {
+  createParticles (opts) {
     this.particles = new Particles({
       ctx: this.ctx,
       W: this.W,
       H: this.H,
-      colors: this.colors,
       wind: this.wind,
       windPosCoef: this.windPosCoef,
       windSpeedMax: this.windSpeedMax,
       count: 0,
-      shape: this.shape
+      shape: opts.shape || 'circle',
+      colors: {
+        opts: opts.colors || [
+          'DodgerBlue',
+          'OliveDrab',
+          'Gold',
+          'pink',
+          'SlateBlue',
+          'lightblue',
+          'Violet',
+          'PaleGreen',
+          'SteelBlue',
+          'SandyBrown',
+          'Chocolate',
+          'Crimson'
+        ],
+        idx: 0,
+        step: 10,
+        get color () {
+          return this.opts[((this.idx++) / this.step | 0) % this.opts.length]
+        }
+      }
     })
   }
 
@@ -73,12 +71,14 @@ class Confetti {
 
   /**
    * Start dropping confetti.
+   * @param {Object} opts
+   *   The particle options.
    */
-  start () {
+  start (opts) {
     if (!this.ctx) {
       this.createContext()
     }
-    this.createParticles()
+    this.createParticles(opts)
     this.updateDimensions()
     this.particlesPerFrame = this.maxParticlesPerFrame
     requestAnimationFrame(this.mainLoop.bind(this))
