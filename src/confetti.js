@@ -76,7 +76,6 @@ class Confetti {
     if (!this.ctx) {
       this.createContext()
     }
-    this.createWind()
     this.createParticles()
     this.updateDimensions()
     this.particlesPerFrame = this.maxParticlesPerFrame
