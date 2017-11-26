@@ -4,7 +4,7 @@ class Particle {
     this.wind = wind
     this.windPosCoef = windPosCoef
     this.windSpeedMax = windSpeedMax
-    this.x = this.rand(-35, this.W + 35)
+    this.x = this.rand(-35, W + 35)
     this.y = this.rand(-30, -35)
     this.r = this.rand(10, 30)
     this.d = this.rand(150) + 10 // density
