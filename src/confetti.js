@@ -14,6 +14,7 @@ class Confetti {
     this.windChange = 0.01
     this.windPosCoef = 0.002
     this.maxParticlesPerFrame = 2 // max particles dropped per frame
+    this.animationId = null
   }
 
   /**
@@ -78,10 +79,13 @@ class Confetti {
     if (!this.ctx) {
       this.createContext()
     }
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId) // Cancel any previous loop
+    }
     this.createParticles(opts)
     this.updateDimensions()
     this.particlesPerFrame = this.maxParticlesPerFrame
-    requestAnimationFrame(this.mainLoop.bind(this))
+    this.animationId = requestAnimationFrame(this.mainLoop.bind(this))
     window.addEventListener('resize', this.updateDimensions.bind(this))
   }
 
@@ -119,7 +123,7 @@ class Confetti {
     this.droppedCount -= this.particlesPerFrame
     this.particles.update()
     this.particles.draw()
-    requestAnimationFrame(this.mainLoop.bind(this))
+    this.animationId = requestAnimationFrame(this.mainLoop.bind(this))
   }
 }
 
