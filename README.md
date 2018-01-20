@@ -46,10 +46,10 @@ npm install vue-confetti --save
 
 The following options can be passed to `$confetti.start()`:
 
-| Property | type   | description                                                     |
-|----------|--------|-----------------------------------------------------------------|
-| colors   | Array  | The confetti colors.                                            |
-| shape    | String | The shape of the confetti (`'circle'`, `'rect'`, or `'heart'`). |
+| Property | Type   | Description                                                     | Default |
+|----------|--------|-----------------------------------------------------------------|---------|
+| colors   | Array  | The confetti colors.                                            | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson']
+| shape    | String | The shape of the confetti (`'circle'`, `'rect'`, or `'heart'`). | 'circle'|
 
 ### Example
 
