@@ -19,8 +19,10 @@ class Confetti {
 
   /**
    * Create the confetti particles.
+   * @param {Object} opts
+   *   The particle options.
    */
-  createParticles (opts) {
+  createParticles (opts = {}) {
     this.particles = new Particles({
       ctx: this.ctx,
       W: this.W,
