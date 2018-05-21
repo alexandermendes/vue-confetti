@@ -8,7 +8,7 @@ class Confetti {
   /**
    * Initialize default.
    */
-  initialize() {
+  initialize () {
     this.canvas = null
     this.ctx = null
     this.W = 0
@@ -110,7 +110,7 @@ class Confetti {
   /**
    * Remove confetti.
    */
-  remove() {
+  remove () {
     this.stop()
     if (this.animationId) {
       cancelAnimationFrame(this.animationId)
