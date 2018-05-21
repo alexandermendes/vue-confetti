@@ -2,6 +2,14 @@ import Particles from './particles'
 
 class Confetti {
   constructor () {
+    this.initialize()
+  }
+
+  /**
+   * Initialize default.
+   */
+  initialize() {
+    this.canvas = null
     this.ctx = null
     this.W = 0
     this.H = 0
@@ -97,6 +105,18 @@ class Confetti {
   stop () {
     this.particlesPerFrame = 0
     window.removeEventListener('resize', this.updateDimensions)
+  }
+
+  /**
+   * Remove confetti.
+   */
+  remove() {
+    this.stop()
+    if (this.animationId) {
+      cancelAnimationFrame(this.animationId)
+    }
+    document.body.removeChild(this.canvas)
+    this.initialize()
   }
 
   /**
