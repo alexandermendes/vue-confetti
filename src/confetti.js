@@ -115,7 +115,9 @@ class Confetti {
     if (this.animationId) {
       cancelAnimationFrame(this.animationId)
     }
-    document.body.removeChild(this.canvas)
+    if (this.canvas) {
+      document.body.removeChild(this.canvas)
+    }
     this.initialize()
   }
 
