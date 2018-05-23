@@ -3,6 +3,7 @@ import Particles from './particles'
 class Confetti {
   constructor () {
     this.initialize()
+    this.onResizeCallback = this.updateDimensions.bind(this)
   }
 
   /**
@@ -96,7 +97,7 @@ class Confetti {
     this.updateDimensions()
     this.particlesPerFrame = this.maxParticlesPerFrame
     this.animationId = requestAnimationFrame(this.mainLoop.bind(this))
-    window.addEventListener('resize', this.updateDimensions.bind(this))
+    window.addEventListener('resize', this.onResizeCallback)
   }
 
   /**
@@ -104,7 +105,7 @@ class Confetti {
    */
   stop () {
     this.particlesPerFrame = 0
-    window.removeEventListener('resize', this.updateDimensions)
+    window.removeEventListener('resize', this.onResizeCallback)
   }
 
   /**
