@@ -148,7 +148,11 @@ class Confetti {
     this.droppedCount -= this.particlesPerFrame
     this.particles.update()
     this.particles.draw()
-    this.animationId = requestAnimationFrame(this.mainLoop.bind(this))
+
+    // Stop calling if no particles left in view (i.e. it's been stopped)
+    if (this.particles.items.length) {
+      this.animationId = requestAnimationFrame(this.mainLoop.bind(this))
+    }
   }
 }
 
