@@ -1,5 +1,7 @@
 import Confetti from './confetti'
 
+export { Confetti }
+
 export default {
   install (Vue, options) {
     if (this.installed) {
