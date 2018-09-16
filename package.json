@@ -19,6 +19,7 @@
     "url": "https://github.com/alexandermendes/vue-confetti/issues"
   },
   "homepage": "https://github.com/alexandermendes/vue-confetti",
+  "dependencies": {},
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
@@ -32,6 +33,7 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "rimraf": "^2.6.2",
+    "vue": "^2.5.17",
     "webpack": "^3.8.1"
   }
 }
