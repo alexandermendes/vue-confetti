@@ -19,7 +19,7 @@ class Particle {
     this.d = this.rand(150) + 10; // density
     this.r = this.rand(10, 30);
     this.color = colors.color; // get the next color
-    this.tilt = this.randI(10);
+    this.tilt = this.rand(10);
     this.tiltAngleIncremental = (
       (this.rand(0.08) + 0.04) * (this.rand() < 0.5 ? -1 : 1)
     );
@@ -31,20 +31,9 @@ class Particle {
 
   /**
    * Return a random number.
-   * @param {Number} min
-   *   The minimum number.
-   * @param {Number} max
-   *   The maximum number.
-   */
-  randI(min, max = min + (min = 0)) {
-    return (Math.random() * (max - min) + min) | 0;
-  }
-
-  /**
-   * Return a random number with a minimum of one.
-   * @param {Number} min
-   *   The minimum number.
-   * @param {Number} max
+   * @param {Number} [min]
+   *   The minimum number (default 1).
+   * @param {Number} [max]
    *   The maximum number.
    */
   rand(min = 1, max = min + (min = 0)) {
