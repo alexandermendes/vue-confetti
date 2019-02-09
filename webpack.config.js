@@ -4,8 +4,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
-const distDir = path.resolve(__dirname, 'dist');
-
 module.exports = {
   entry: {
     'vue-confetti': [
@@ -19,7 +17,7 @@ module.exports = {
   mode: 'production',
 
   output: {
-    path: distDir,
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
     library: 'vue-confetti',
     libraryTarget: 'umd',
@@ -50,10 +48,9 @@ module.exports = {
 
   plugins: [
     new CleanWebpackPlugin(
-      [`./dist`],
+      [ 'dist' ],
       {
-        root: path.resolve('..'),
-        verbose: false,
+        root: __dirname,
       }
     ),
 
