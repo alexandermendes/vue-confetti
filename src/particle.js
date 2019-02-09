@@ -5,7 +5,16 @@ class Particle {
    *   The particle options
    */
   setup({
-    ctx, W, H, colors, wind, windPosCoef, windSpeedMax, count, shape,
+    ctx,
+    W,
+    H,
+    colors,
+    wind,
+    windPosCoef,
+    windSpeedMax,
+    count,
+    shape,
+    size,
   }) {
     this.ctx = ctx;
     this.W = W;
@@ -17,7 +26,7 @@ class Particle {
     this.x = this.rand(-35, W + 35);
     this.y = this.rand(-30, -35);
     this.d = this.rand(150) + 10; // density
-    this.r = this.rand(10, 30);
+    this.r = this.rand(size, size * 2);
     this.color = colors.color; // get the next color
     this.tilt = this.rand(10);
     this.tiltAngleIncremental = (

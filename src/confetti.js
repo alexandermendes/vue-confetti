@@ -1,15 +1,19 @@
 import Particles from './particles';
 
 class Confetti {
+  /**
+   * Initialise.
+   */
   constructor() {
-    this.initialize();
+
+    this.setDefaults();
     this.onResizeCallback = this.updateDimensions.bind(this);
   }
 
   /**
    * Initialize default.
    */
-  initialize() {
+  setDefaults() {
     this.canvas = null;
     this.ctx = null;
     this.W = 0;
@@ -36,6 +40,7 @@ class Confetti {
       ctx: this.ctx,
       W: this.W,
       H: this.H,
+      size: opts.size || 10,
       wind: this.wind,
       windPosCoef: this.windPosCoef,
       windSpeedMax: this.windSpeedMax,
@@ -90,9 +95,11 @@ class Confetti {
     if (!this.ctx) {
       this.createContext();
     }
+
     if (this.animationId) {
       cancelAnimationFrame(this.animationId); // Cancel any previous loop
     }
+
     this.createParticles(opts);
     this.updateDimensions();
     this.particlesPerFrame = this.maxParticlesPerFrame;
@@ -119,7 +126,7 @@ class Confetti {
     if (this.canvas) {
       document.body.removeChild(this.canvas);
     }
-    this.initialize();
+    this.setDefaults();
   }
 
   /**
@@ -141,10 +148,12 @@ class Confetti {
     this.ctx.clearRect(0, 0, this.W, this.H);
     this.windSpeed = Math.sin(time / 8000) * this.windSpeedMax;
     this.wind = this.particles.opts.wind += this.windChange;
+
     while (this.droppedCount < this.particlesPerFrame) {
       this.droppedCount += 1;
       this.particles.add();
     }
+
     this.droppedCount -= this.particlesPerFrame;
     this.particles.update();
     this.particles.draw();
