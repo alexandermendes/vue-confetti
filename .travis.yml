@@ -6,27 +6,23 @@ node_js:
   - '10'
 
 stages:
-  - build
   - test
-  - name: release
-    if: (NOT type IN (pull_request)) AND (branch = master)
   - name: deploy
+    if: (NOT type IN (pull_request)) AND (branch = master)
+  - name: release
     if: (NOT type IN (pull_request)) AND (branch = master)
 
 jobs:
   include:
-    - stage: build
-      script: npm install
-      script: npm run build
     - stage: test
-      script: npm run test
-    - stage: release
-      if: branch = master
-      script: npx semantic-release
+      script: npm install && npm run test
     - stage: deploy
-      script: skip # to not run Travis' default script
+      script: npm install && npm build
       deploy:
         provider: pages
         local-dir: dist
         skip-cleanup: true
         github-token: $GITHUB_TOKEN
+    - stage: release
+      if: branch = master
+      script: npm install && npm build && npx semantic-release
