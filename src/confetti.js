@@ -30,13 +30,8 @@ class Confetti {
     this.animationId = null;
   }
 
-  /**
-   * Create the confetti particles.
-   * @param {Object} opts
-   *   The particle options.
-   */
-  createParticles(opts = {}) {
-    this.particles = new Particles({
+  particleOptions(opts) {
+    return {
       ctx: this.ctx,
       W: this.W,
       H: this.H,
@@ -67,7 +62,17 @@ class Confetti {
           return this.opts[((this.idx++) / this.step | 0) % this.opts.length];
         },
       },
-    });
+    };
+  }
+
+  /**
+   * Create the confetti particles.
+   * @param {Object} opts
+   *   The particle options.
+   */
+  createParticles(opts = {}) {
+    const particleOpts = this.particleOptions(opts);
+    this.particles = new Particles(particleOpts);
   }
 
   /**
@@ -113,6 +118,13 @@ class Confetti {
   stop() {
     this.particlesPerFrame = 0;
     window.removeEventListener('resize', this.onResizeCallback);
+  }
+
+  /**
+   * Update the confetti options.
+   */
+  update(opts) {
+    this.particles.opts = this.particleOptions(opts);
   }
 
   /**

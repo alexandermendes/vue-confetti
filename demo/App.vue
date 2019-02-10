@@ -1,12 +1,25 @@
 <template>
-  <main style="display: flex; justify-content: center; align-items: center;">
-    <button @click="start" style="margin: 5px;">Start</button>
-    <button @click="stop" style="margin: 5px;">Stop</button>
-    <select ref="shape" style="margin: 5px;">
-      <option value="heart">Heart</option>
-      <option value="rect">Rectangle</option>
-      <option value="circle">Circle</option>
-    </select>
+  <main style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+
+    <div style="margin: 5px;">
+      <button @click="start" style="margin: 5px;">Start</button>
+      <button @click="stop" style="margin: 5px;">Stop</button>
+    </div>
+
+    <div style="margin: 5px;">
+      <label for="size" style="margin-right: 5px;">Size:</label>
+      <input v-model="size" id="size" type="number" min="1" max="100" step="1">
+    </div>
+
+    <div style="margin: 5px;">
+      <label for="shape" style="margin-right: 5px;">Shape:</label>
+      <select v-model="shape" id="shape">
+        <option value="rect">Rectangle</option>
+        <option value="circle">Circle</option>
+        <option value="heart">Heart</option>
+      </select>
+    </div>
+
     <a
       href="https://badge.fury.io/js/vue-confetti"
       style="display: flex; margin: 5px;">
@@ -15,20 +28,41 @@
         alt="npm version"
         height="18">
     </a>
+
   </main>
 </template>
 
 <script>
   export default {
+    data() {
+      return {
+        shape: 'rect',
+        size: 10,
+      };
+    },
+
+    computed: {
+      options() {
+        return {
+          shape: this.shape,
+          size: this.size,
+        }
+      },
+    },
+
     methods: {
       start () {
-        this.$confetti.start({
-          shape: this.$refs.shape.value
-        })
+        this.$confetti.start(this.options);
       },
 
       stop () {
-        this.$confetti.stop()
+        this.$confetti.stop();
+      },
+    },
+
+    watch: {
+      options() {
+        this.$confetti.update(this.options);
       }
     }
   }
