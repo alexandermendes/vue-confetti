@@ -29,4 +29,11 @@ describe('getRandomNumber', () => {
     const n = getRandomNumber(0, 1, true);
     expect(n).toEqual(0);
   });
+
+  it('still returns correct value when strings passed', () => {
+    mockRandom([0.1]);
+    const n = getRandomNumber('2', '10');
+    const m = getRandomNumber(2, 10);
+    expect(n).toEqual(m);
+  });
 });

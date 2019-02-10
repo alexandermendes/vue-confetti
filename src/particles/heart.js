@@ -11,12 +11,12 @@ export default class HeartParticle extends BaseParticle {
     super.draw();
     const curveTo = (cp1x, cp1y, cp2x, cp2y, x, y) => {
       this.canvas.ctx.bezierCurveTo(
-        cp1x / this.r * 2,
-        cp1y / this.r * 2,
-        cp2x / this.r * 2,
-        cp2y / this.r * 2,
-        x / this.r * 2,
-        y / this.r * 2,
+        cp1x * (this.r / 200),
+        cp1y * (this.r / 200),
+        cp2x * (this.r / 200),
+        cp2y * (this.r / 200),
+        x * (this.r / 200),
+        y * (this.r / 200),
       );
     };
     this.canvas.ctx.moveTo(37.5 / this.r, 20 / this.r);
