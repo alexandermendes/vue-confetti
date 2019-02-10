@@ -3,13 +3,13 @@
  * @param {Number} [min]
  *   The minimum number (default 1).
  * @param {Number} [max]
- *   The maximum number.
+ *   The maximum number (default min + 1).
  * @param {boolean} round
  *   True to round the number to the nearest integer, false otherwise.
  * @return {Number}
  *   A random number between min and max.
  */
-export default (min = 1, max = min + (min = 0), round = false) => { // eslint-disable-line no-param-reassign
-  const n = Math.random() * (max - min) + min;
+export default (min = 1, max = min + 1, round = false) => {
+  const n = (Math.random() * (max - min)) + min;
   return round ? Math.round(n) : n;
 };

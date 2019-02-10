@@ -1,3 +1,5 @@
+import getRandomNumber from '../utils/get-random-number';
+
 /**
  * A particle that can be drawn on a canvas.
  */
@@ -36,29 +38,18 @@ export default class BaseParticle {
     this.shape = shape;
     this.windPosCoef = windPosCoef;
     this.windSpeedMax = windSpeedMax;
-    this.x = BaseParticle.rand(-35, W + 35);
-    this.y = BaseParticle.rand(-30, -35);
-    this.d = BaseParticle.rand(150) + 10; // density
-    this.r = BaseParticle.rand(this.size, this.size * 2);
-    this.tilt = BaseParticle.rand(10);
+    this.x = getRandomNumber(-35, W + 35);
+    this.y = getRandomNumber(-30, -35);
+    this.d = getRandomNumber(150) + 10; // density
+    this.r = getRandomNumber(this.size, this.size * 2);
+    this.tilt = getRandomNumber(10);
     this.tiltAngleIncremental = (
-      (BaseParticle.rand(0.08) + 0.04) * (BaseParticle.rand() < 0.5 ? -1 : 1)
+      (getRandomNumber(0, 0.08) + 0.04) * (getRandomNumber() < 0.5 ? -1 : 1)
     );
     this.tiltAngle = 0;
-    this.angle = BaseParticle.rand(Math.PI * 2);
+    this.angle = getRandomNumber(Math.PI * 2);
     this.count = count + 1;
     return this;
-  }
-
-  /**
-   * Return a random number.
-   * @param {Number} [min]
-   *   The minimum number (default 1).
-   * @param {Number} [max]
-   *   The maximum number.
-   */
-  static rand(min = 1, max = min + (min = 0)) { // eslint-disable-line no-param-reassign
-    return Math.random() * (max - min) + min;
   }
 
   /**

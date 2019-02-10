@@ -30,7 +30,7 @@ export default (options) => {
       'Chocolate',
       'Crimson',
     ],
-  }
+  };
 
   Object.assign(defaults, options);
 
