@@ -63,3 +63,21 @@ $confetti.start({
   colors: ['red', 'pink', '#ba0000']
 })
 ```
+
+## Development
+
+The following scripts are available for local development:
+
+```bash
+# test
+npm run test
+
+# build
+npm run build
+```
+
+Note that vue-confetti enforces
+[conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/)
+to help automate the release process. Whenever code is merged into master the next
+[semantic version](https://semver.org/) number is automatically determined, a
+changelog generated and the release published.
