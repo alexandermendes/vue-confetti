@@ -5,19 +5,26 @@ language: node_js
 node_js:
   - '10'
 
-install:
-  - npm install
+stages:
+  - compile
+  - test
+  - release
+  - deploy
 
-script:
-  - npm run test
-  - npm run build
-
-# Deploy demo to GitHub pages
-deploy:
-  provider: pages
-  local-dir: dist
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN
-  keep-history: true
-  on:
-    branch: master
+jobs:
+  include:
+    - name: compile
+      script: npm install
+      script: npm run build
+    - name: test
+      script: npm run test
+    - name: release
+      script: npx semantic-release
+    - name: deploy
+      deploy:
+      provider: pages
+      local-dir: dist
+      skip-cleanup: true
+      github-token: $GITHUB_TOKEN
+      on:
+        branch: master
