@@ -6,13 +6,13 @@ import particleFactory from './factories/particle';
 export default class ParticleManger {
   /**
    * Initialise.
-   * @param {object} opts
+   * @param {object} particleOptions
    *   The particle options.
    */
-  constructor(opts) {
+  constructor(particleOptions) {
     this.items = [];
     this.pool = [];
-    this.opts = opts;
+    this.particleOptions = particleOptions;
   }
 
   /**
@@ -21,8 +21,10 @@ export default class ParticleManger {
   update() {
     this.items.filter(item => item.update()).forEach((item, index) => {
       const particle = this.items.splice(index - 1, 1)[0];
-      particle.setup(this.opts);
-      this.pool.push(particle);
+      particle.setup(this.particleOptions);
+      if (!particle.kill) {
+        this.pool.push(particle);
+      }
     });
   }
 
@@ -38,9 +40,19 @@ export default class ParticleManger {
    */
   add() {
     if (this.pool.length > 0) {
-      this.items.push(this.pool.pop().setup(this.opts));
+      this.items.push(this.pool.pop().setup(this.particleOptions));
     } else {
-      this.items.push(particleFactory(this.opts).setup(this.opts));
+      this.items.push(particleFactory(this.particleOptions).setup(this.particleOptions));
     }
+  }
+
+  /**
+   * Replace particles once they have left the screen.
+   */
+  refresh() {
+    this.items.forEach((item) => {
+      item.kill = true; // eslint-disable-line no-param-reassign
+    });
+    this.pool = [];
   }
 }

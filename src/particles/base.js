@@ -29,13 +29,11 @@ export default class BaseParticle {
     windPosCoef,
     windSpeedMax,
     count,
-    shape,
   }) {
     this.ctx = ctx;
     this.W = W;
     this.H = H;
     this.wind = wind;
-    this.shape = shape;
     this.windPosCoef = windPosCoef;
     this.windSpeedMax = windSpeedMax;
     this.x = getRandomNumber(-35, W + 35);

@@ -108,6 +108,7 @@ export default class Confetti {
    */
   update(opts) {
     this.particles.opts = this.particleOptions(opts);
+    this.particles.refresh();
   }
 
   /**
