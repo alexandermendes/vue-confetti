@@ -22,6 +22,7 @@ npm install vue-confetti --save
   <main>
     <button @click="start">Start</button>
     <button @click="stop">Stop</button>
+    <button @click="love">Show some love</button>
   </main>
 </template>
 
@@ -33,12 +34,23 @@ npm install vue-confetti --save
 
   export default {
     methods: {
-      start () {
-        this.$confetti.start()
+      start() {
+        this.$confetti.start();
       },
 
-      stop () {
-        this.$confetti.stop()
+      stop() {
+        this.$confetti.stop();
+      }
+
+      love() {
+        this.$confetti.update({
+          shape: 'heart',
+          colors: [
+            'red',
+            'pink',
+            '#ba0000'
+          ],
+        });
       }
     }
   }
@@ -47,19 +59,45 @@ npm install vue-confetti --save
 
 ## Configuration
 
-The following options can be passed to `$confetti.start()`:
+The following options can be passed to `$confetti.start()` or `$confetti.update()`:
 
-| Property | Type   | Description                                                     | Default  |
-|----------|--------|-----------------------------------------------------------------|----------|
-| colors   | Array  | The confetti colors.                                            | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
-| shape    | String | The shape of the confetti (`'circle'`, `'rect'`, or `'heart'`). | 'circle' |
-| size     | Number | The size of the particles (should be a positive number).        | 10       |
+| Property | Type              | Description                                                     | Default   |
+|----------|-------------------|-----------------------------------------------------------------|-----------|
+| shape    | String            | The shape of the confetti (`'circle'`, `'rect'`, or `'heart'`). | 'circle'  |
+| size     | Number            | The size of the particles (should be a positive number).        | 10        |
+| dropRate | Number            | The speed at which the particles fall.                          | 10        |
+| colors   | Array             | The confetti colors.                                            | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
 
 ### Example
 
 ``` js
 $confetti.start({
   shape: 'heart',
-  colors: ['red', 'pink', '#ba0000']
-})
+  colors: [
+    'red',
+    'pink',
+    '#ba0000',
+  ],
+});
 ```
+
+## Development
+
+The following scripts are available for local development:
+
+```bash
+# test
+npm run test
+
+# run with webpack watch
+npm run dev
+
+# build for production
+npm run build
+```
+
+Note that vue-confetti enforces
+[conventional commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/)
+to help automate the release process. Whenever code is merged into master the next
+[semantic version](https://semver.org/) number is automatically determined, a
+changelog generated and the release published.

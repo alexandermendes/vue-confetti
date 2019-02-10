@@ -7,7 +7,11 @@ module.exports = {
           {
             type: 'refactor',
             release: 'patch'
-          }
+          },
+          {
+            type: 'docs',
+            release: 'patch'
+          },
         ]
       }
     ],
