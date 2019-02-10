@@ -132,5 +132,3 @@ export default class Particle {
     }
   }
 }
-
-export default Particle;
