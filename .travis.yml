@@ -8,10 +8,8 @@ node_js:
 stages:
   - compile
   - test
-  - name: release
-    if: branch = master
-  - name: deploy
-    if: branch = master
+  - release
+  - deploy
 
 jobs:
   include:
@@ -28,3 +26,5 @@ jobs:
       local-dir: dist
       skip-cleanup: true
       github-token: $GITHUB_TOKEN
+      on:
+        branch: master
