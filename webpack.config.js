@@ -4,6 +4,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
+const isDev = process.env.NODE_ENV !== 'production';
+
 module.exports = {
   entry: {
     'vue-confetti': [
@@ -14,9 +16,9 @@ module.exports = {
     ]
   },
 
-  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  mode: isDev ? 'development' : 'production',
 
-  devtool: 'cheap-module-source-map',
+  devtool: isDev ? 'cheap-module-source-map' : false,
 
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -44,7 +46,7 @@ module.exports = {
       new TerserWebpackPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true,
+        sourceMap: isDev,
       }),
     ],
   },
