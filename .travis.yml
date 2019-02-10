@@ -8,6 +8,8 @@ node_js:
 stages:
   - compile
   - test
+  - name: release
+    if: branch = master
   - name: deploy
     if: branch = master
 
@@ -18,6 +20,11 @@ jobs:
       script: npm run build
     - name: test
       script: npm run test
-    - name: deploy
+    - name: release
       script: npx semantic-release
-      script: npm run deploy:demo
+    - name: deploy
+      deploy:
+      provider: pages
+      local-dir: dist
+      skip-cleanup: true
+      github-token: $GITHUB_TOKEN
