@@ -53,7 +53,6 @@ The following options can be passed to `$confetti.start()`:
 |----------|-------------------|-----------------------------------------------------------------|-----------|
 | shape    | String            | The shape of the confetti (`'circle'`, `'rect'`, or `'heart'`). | 'circle'  |
 | size     | Number            | The size of the particles (should be a positive number).        | 10        |
-| canvas   | HTMLCanvasElement | A canvas to use instead of the generated full-screen canvas     | generated |
 | colors   | Array             | The confetti colors.                                            | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
 
 ### Example
