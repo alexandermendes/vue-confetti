@@ -1,8 +1,11 @@
-class Particle {
+/**
+ * A particle that can be drawn on a canvas.
+ */
+export default class Particle {
   /**
-   * Setup the particle.
+   * Initialise.
    * @param {options} opts
-   *   The particle options
+   *   The particle options.
    */
   setup({
     ctx,
@@ -129,5 +132,3 @@ class Particle {
     }
   }
 }
-
-export default Particle;
