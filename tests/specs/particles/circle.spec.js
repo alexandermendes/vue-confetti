@@ -1,13 +1,13 @@
 import { CircleParticle } from '../../../src/particles';
-import { createContext, createParticleOptions } from '../../__mocks__';
+import { createParticleOptions } from '../../__mocks__';
 
 describe('CircleParticle', () => {
   let options = null;
   let ctx = null;
 
   beforeEach(() => {
-    ctx = createContext();
     options = createParticleOptions(ctx);
+    ctx = options.canvas.ctx;
   });
 
   it('is drawn as expected', () => {

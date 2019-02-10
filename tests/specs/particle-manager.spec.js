@@ -27,25 +27,18 @@ describe('ParticleManager', () => {
     ];
     particleManager.items = [
       {
-        foo: 'bar'
+        kill: jest.fn(),
       },
       {
-        baz: 'qux'
+        kill: jest.fn(),
       },
     ];
 
     particleManager.refresh();
 
     expect(particleManager.pool).toEqual([]);
-    expect(particleManager.items).toEqual([
-      {
-        foo: 'bar',
-        kill: true,
-      },
-      {
-        baz: 'qux',
-        kill: true,
-      },
-    ]);
+    particleManager.items.forEach((item) => {
+      expect(item.kill).toHaveBeenCalledTimes(1);
+    });
   });
 });

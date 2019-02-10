@@ -22,21 +22,17 @@ export default class BaseParticle {
    *   The particle options.
    */
   setup({
-    ctx,
-    W,
-    H,
+    canvas,
     wind,
     windPosCoef,
     windSpeedMax,
     count,
   }) {
-    this.ctx = ctx;
-    this.W = W;
-    this.H = H;
+    this.canvas = canvas;
     this.wind = wind;
     this.windPosCoef = windPosCoef;
     this.windSpeedMax = windSpeedMax;
-    this.x = getRandomNumber(-35, W + 35);
+    this.x = getRandomNumber(-35, this.canvas.width + 35);
     this.y = getRandomNumber(-30, -35);
     this.d = getRandomNumber(150) + 10; // density
     this.r = getRandomNumber(this.size, this.size * 2);
@@ -47,6 +43,7 @@ export default class BaseParticle {
     this.tiltAngle = 0;
     this.angle = getRandomNumber(Math.PI * 2);
     this.count = count + 1;
+    this.remove = false;
     return this;
   }
 
@@ -67,16 +64,16 @@ export default class BaseParticle {
       this.wind + (this.d + this.x + this.y) * this.windPosCoef,
     ) * this.windSpeedMax;
     this.tilt = (Math.sin(this.tiltAngle - (this.count / 3))) * 15;
-    return this.y > this.H; // returns true if particle is past bottom
+    return this.y > this.canvas.height; // returns true if particle is past bottom
   }
 
   /**
    * Draw a particle.
    */
   draw() {
-    this.ctx.fillStyle = this.color;
-    this.ctx.beginPath();
-    this.ctx.setTransform(
+    this.canvas.ctx.fillStyle = this.color;
+    this.canvas.ctx.beginPath();
+    this.canvas.ctx.setTransform(
       Math.cos(this.tiltAngle), // set the x axis to the tilt angle
       Math.sin(this.tiltAngle),
       0,
@@ -84,5 +81,12 @@ export default class BaseParticle {
       this.x,
       this.y, // set the origin
     );
+  }
+
+  /**
+   * Kill the particle after it has left the screen.
+   */
+  kill() {
+    this.remove = true;
   }
 }

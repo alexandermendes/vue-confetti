@@ -50,7 +50,9 @@ export default class ParticleManger {
    * Replace particles once they have left the screen.
    */
   refresh() {
-    this.items = this.items.map(item => ({ kill: true, ...item }));
+    this.items.forEach((item) => {
+      item.kill();
+    });
     this.pool = [];
   }
 }

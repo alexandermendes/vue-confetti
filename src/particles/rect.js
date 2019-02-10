@@ -9,6 +9,6 @@ export default class RectParticle extends BaseParticle {
    */
   draw() {
     super.draw();
-    this.ctx.fillRect(0, 0, this.r, this.r / 2);
+    this.canvas.ctx.fillRect(0, 0, this.r, this.r / 2);
   }
 }
