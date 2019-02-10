@@ -1,6 +1,9 @@
 import Particles from './particles';
 
-class Confetti {
+/**
+ * A class to drawing confetti onto a canvas.
+ */
+export default class Confetti {
   /**
    * Initialise.
    */
@@ -176,5 +179,3 @@ class Confetti {
     }
   }
 }
-
-export default Confetti;

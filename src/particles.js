@@ -1,6 +1,14 @@
 import Particle from './particle';
 
-class Particles {
+/**
+ * A particle generation and management service.
+ */
+export default class Particles {
+  /**
+   * Initialise.
+   * @param {object} opts
+   *   The particle options.
+   */
   constructor(opts) {
     this.items = [];
     this.pool = [];
@@ -34,5 +42,3 @@ class Particles {
     }
   }
 }
-
-export default Particles;
