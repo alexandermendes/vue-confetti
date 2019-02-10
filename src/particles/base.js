@@ -3,6 +3,18 @@
  */
 export default class BaseParticle {
   /**
+   * Initialise.
+   * @param {object} options
+   *   The particle options.
+   * @param {object} options.color
+   *   The particle color.
+   */
+  constructor({ color = 'blue', size = 10 } = {}) {
+    this.color = color;
+    this.size = size;
+  }
+
+  /**
    * Setup.
    * @param {options} opts
    *   The particle options.
@@ -11,13 +23,11 @@ export default class BaseParticle {
     ctx,
     W,
     H,
-    colors,
     wind,
     windPosCoef,
     windSpeedMax,
     count,
     shape,
-    size,
   }) {
     this.ctx = ctx;
     this.W = W;
@@ -29,8 +39,7 @@ export default class BaseParticle {
     this.x = BaseParticle.rand(-35, W + 35);
     this.y = BaseParticle.rand(-30, -35);
     this.d = BaseParticle.rand(150) + 10; // density
-    this.r = BaseParticle.rand(size, size * 2);
-    this.color = colors.color; // get the next color
+    this.r = BaseParticle.rand(this.size, this.size * 2);
     this.tilt = BaseParticle.rand(10);
     this.tiltAngleIncremental = (
       (BaseParticle.rand(0.08) + 0.04) * (BaseParticle.rand() < 0.5 ? -1 : 1)

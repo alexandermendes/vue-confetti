@@ -33,39 +33,19 @@ export default class Confetti {
   }
 
   particleOptions(opts) {
-    return {
+    const options = {
       ctx: this.ctx,
       W: this.W,
       H: this.H,
-      size: opts.size || 10,
       wind: this.wind,
       windPosCoef: this.windPosCoef,
       windSpeedMax: this.windSpeedMax,
       count: 0,
-      shape: opts.shape || 'circle',
-      colors: {
-        opts: opts.colors || [
-          'DodgerBlue',
-          'OliveDrab',
-          'Gold',
-          'pink',
-          'SlateBlue',
-          'lightblue',
-          'Violet',
-          'PaleGreen',
-          'SteelBlue',
-          'SandyBrown',
-          'Chocolate',
-          'Crimson',
-        ],
-        idx: 0,
-        step: 10,
-        get color() {
-          this.idx += 1;
-          return this.opts[((this.idx) / this.step | 0) % this.opts.length]; // eslint-disable-line
-        },
-      },
     };
+
+    Object.assign(options, opts);
+
+    return options;
   }
 
   /**
