@@ -5,7 +5,6 @@ class Confetti {
    * Initialise.
    */
   constructor() {
-
     this.setDefaults();
     this.onResizeCallback = this.updateDimensions.bind(this);
   }
@@ -59,7 +58,8 @@ class Confetti {
         idx: 0,
         step: 10,
         get color() {
-          return this.opts[((this.idx++) / this.step | 0) % this.opts.length];
+          this.idx += 1;
+          return this.opts[((this.idx) / this.step | 0) % this.opts.length]; // eslint-disable-line
         },
       },
     };
@@ -146,8 +146,8 @@ class Confetti {
    */
   updateDimensions() {
     if (this.W !== window.innerWidth || this.H !== window.innerHeight) {
-      this.W = this.particles.opts.W = this.canvas.width = window.innerWidth;
-      this.H = this.particles.opts.H = this.canvas.height = window.innerHeight;
+      this.W = this.particles.opts.W = this.canvas.width = window.innerWidth; // eslint-disable-line
+      this.H = this.particles.opts.H = this.canvas.height = window.innerHeight; // eslint-disable-line
     }
   }
 
@@ -159,7 +159,7 @@ class Confetti {
     this.ctx.setTransform(1, 0, 0, 1, 0, 0);
     this.ctx.clearRect(0, 0, this.W, this.H);
     this.windSpeed = Math.sin(time / 8000) * this.windSpeedMax;
-    this.wind = this.particles.opts.wind += this.windChange;
+    this.wind = this.particles.opts.wind += this.windChange; // eslint-disable-line
 
     while (this.droppedCount < this.particlesPerFrame) {
       this.droppedCount += 1;

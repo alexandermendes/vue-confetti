@@ -8,6 +8,6 @@ export default {
       return;
     }
     this.installed = true;
-    Vue.prototype.$confetti = new Confetti(options);
+    Vue.prototype.$confetti = new Confetti(options); // eslint-disable-line no-param-reassign
   },
 };

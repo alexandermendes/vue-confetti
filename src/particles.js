@@ -11,20 +11,16 @@ class Particles {
    * Move the particle back to the pool if it is past the bottom.
    */
   update() {
-    for (let i = 0; i < this.items.length; i++) {
-      if (this.items[i].update() === true) {
-        this.pool.push(this.items.splice(i--, 1)[0]);
-      }
-    }
+    this.items.filter(item => item.update()).forEach((item, index) => {
+      this.pool.push(this.items.splice(index - 1, 1)[0]);
+    });
   }
 
   /**
    * Draw the particles currently in view.
    */
   draw() {
-    for (let i = 0; i < this.items.length; i++) {
-      this.items[i].draw();
-    }
+    this.items.forEach(item => item.draw());
   }
 
   /**

@@ -8,7 +8,6 @@ Confetti {
   "canvas": null,
   "ctx": null,
   "droppedCount": 0,
-  "maxParticles": 150,
   "maxParticlesPerFrame": 2,
   "onResizeCallback": [Function],
   "particles": Object {},
