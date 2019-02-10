@@ -56,6 +56,7 @@ module.exports = {
 
     new HtmlWebpackPlugin({
       template: require('html-webpack-template'),
+      title: 'Vue Confetti Demo',
       appMountId: 'app',
     }),
 
