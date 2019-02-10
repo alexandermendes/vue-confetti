@@ -23,18 +23,18 @@ class Particle {
     this.shape = shape;
     this.windPosCoef = windPosCoef;
     this.windSpeedMax = windSpeedMax;
-    this.x = this.rand(-35, W + 35);
-    this.y = this.rand(-30, -35);
-    this.d = this.rand(150) + 10; // density
-    this.r = this.rand(size, size * 2);
+    this.x = Particle.rand(-35, W + 35);
+    this.y = Particle.rand(-30, -35);
+    this.d = Particle.rand(150) + 10; // density
+    this.r = Particle.rand(size, size * 2);
     this.color = colors.color; // get the next color
-    this.tilt = this.rand(10);
+    this.tilt = Particle.rand(10);
     this.tiltAngleIncremental = (
-      (this.rand(0.08) + 0.04) * (this.rand() < 0.5 ? -1 : 1)
+      (Particle.rand(0.08) + 0.04) * (Particle.rand() < 0.5 ? -1 : 1)
     );
     this.tiltAngle = 0;
-    this.angle = this.rand(Math.PI * 2);
-    this.count = count++;
+    this.angle = Particle.rand(Math.PI * 2);
+    this.count = count + 1;
     return this;
   }
 
@@ -45,7 +45,7 @@ class Particle {
    * @param {Number} [max]
    *   The maximum number.
    */
-  rand(min = 1, max = min + (min = 0)) {
+  static rand(min = 1, max = min + (min = 0)) { // eslint-disable-line no-param-reassign
     return Math.random() * (max - min) + min;
   }
 
