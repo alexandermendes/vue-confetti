@@ -22,6 +22,7 @@ npm install vue-confetti --save
   <main>
     <button @click="start">Start</button>
     <button @click="stop">Stop</button>
+    <button @click="love">Show some love</button>
   </main>
 </template>
 
@@ -33,12 +34,23 @@ npm install vue-confetti --save
 
   export default {
     methods: {
-      start () {
-        this.$confetti.start()
+      start() {
+        this.$confetti.start();
       },
 
-      stop () {
-        this.$confetti.stop()
+      stop() {
+        this.$confetti.stop();
+      }
+
+      love() {
+        this.$confetti.update({
+          shape: 'heart',
+          colors: [
+            'red',
+            'pink',
+            '#ba0000'
+          ],
+        });
       }
     }
   }
@@ -47,7 +59,7 @@ npm install vue-confetti --save
 
 ## Configuration
 
-The following options can be passed to `$confetti.start()`:
+The following options can be passed to `$confetti.start()` or `$confetti.update()`:
 
 | Property | Type              | Description                                                     | Default   |
 |----------|-------------------|-----------------------------------------------------------------|-----------|
@@ -60,8 +72,12 @@ The following options can be passed to `$confetti.start()`:
 ``` js
 $confetti.start({
   shape: 'heart',
-  colors: ['red', 'pink', '#ba0000']
-})
+  colors: [
+    'red',
+    'pink',
+    '#ba0000',
+  ],
+});
 ```
 
 ## Development
