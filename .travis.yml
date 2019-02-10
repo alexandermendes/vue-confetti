@@ -9,9 +9,9 @@ stages:
   - build
   - test
   - name: release
-    if: (branch = master) AND (NOT (type IN (push, pull_request)))
+    if: (NOT type IN (pull_request)) AND (branch = master)
   - name: deploy
-    if: (branch = master) AND (NOT (type IN (push, pull_request)))
+    if: (NOT type IN (pull_request)) AND (branch = master)
 
 jobs:
   include:
