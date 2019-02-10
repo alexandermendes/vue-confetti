@@ -1,5 +1,4 @@
-import ParticleManager from './particle-manager';
-import Canvas from './canvas';
+import Particles from './particles';
 
 /**
  * A class to drawing confetti onto a canvas.
@@ -10,6 +9,7 @@ export default class Confetti {
    */
   constructor() {
     this.setDefaults();
+    this.onResizeCallback = this.updateDimensions.bind(this);
   }
 
   /**
@@ -17,9 +17,10 @@ export default class Confetti {
    */
   setDefaults() {
     this.canvas = null;
+    this.ctx = null;
     this.W = 0;
     this.H = 0;
-    this.particles = null;
+    this.particles = {};
     this.droppedCount = 0;
     this.particlesPerFrame = 1.5;
     this.wind = 0;
@@ -32,19 +33,39 @@ export default class Confetti {
   }
 
   particleOptions(opts) {
-    const options = {
-      canvas: this.canvas,
+    return {
+      ctx: this.ctx,
       W: this.W,
       H: this.H,
+      size: opts.size || 10,
       wind: this.wind,
       windPosCoef: this.windPosCoef,
       windSpeedMax: this.windSpeedMax,
       count: 0,
+      shape: opts.shape || 'circle',
+      colors: {
+        opts: opts.colors || [
+          'DodgerBlue',
+          'OliveDrab',
+          'Gold',
+          'pink',
+          'SlateBlue',
+          'lightblue',
+          'Violet',
+          'PaleGreen',
+          'SteelBlue',
+          'SandyBrown',
+          'Chocolate',
+          'Crimson',
+        ],
+        idx: 0,
+        step: 10,
+        get color() {
+          this.idx += 1;
+          return this.opts[((this.idx) / this.step | 0) % this.opts.length]; // eslint-disable-line
+        },
+      },
     };
-
-    Object.assign(options, opts);
-
-    return options;
   }
 
   /**
@@ -54,7 +75,23 @@ export default class Confetti {
    */
   createParticles(opts = {}) {
     const particleOpts = this.particleOptions(opts);
-    this.particles = new ParticleManager(particleOpts);
+    this.particles = new Particles(particleOpts);
+  }
+
+  /**
+   * Add a fixed, full-screen canvas to the page.
+   */
+  createContext() {
+    this.canvas = document.createElement('canvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.canvas.style.display = 'block';
+    this.canvas.style.position = 'fixed';
+    this.canvas.style.pointerEvents = 'none';
+    this.canvas.style.top = 0;
+    this.canvas.style.width = '100vw';
+    this.canvas.style.height = '100vh';
+    this.canvas.id = 'confetti-canvas';
+    document.querySelector('body').appendChild(this.canvas);
   }
 
   /**
@@ -63,8 +100,8 @@ export default class Confetti {
    *   The particle options.
    */
   start(opts) {
-    if (!this.canvas) {
-      this.canvas = new Canvas();
+    if (!this.ctx) {
+      this.createContext();
     }
 
     if (this.animationId) {
@@ -72,9 +109,10 @@ export default class Confetti {
     }
 
     this.createParticles(opts);
-    this.canvas.updateDimensions();
+    this.updateDimensions();
     this.particlesPerFrame = this.maxParticlesPerFrame;
     this.animationId = requestAnimationFrame(this.mainLoop.bind(this));
+    window.addEventListener('resize', this.onResizeCallback);
   }
 
   /**
@@ -82,16 +120,14 @@ export default class Confetti {
    */
   stop() {
     this.particlesPerFrame = 0;
+    window.removeEventListener('resize', this.onResizeCallback);
   }
 
   /**
    * Update the confetti options.
    */
   update(opts) {
-    if (this.particles) {
-      this.particles.particleOptions = this.particleOptions(opts);
-      this.particles.refresh();
-    }
+    this.particles.opts = this.particleOptions(opts);
   }
 
   /**
@@ -102,20 +138,31 @@ export default class Confetti {
     if (this.animationId) {
       cancelAnimationFrame(this.animationId);
     }
-
-    this.canvas.destroy();
+    if (this.canvas) {
+      document.body.removeChild(this.canvas);
+    }
     this.setDefaults();
+  }
+
+  /**
+   * Update the dimensions, if necessary.
+   */
+  updateDimensions() {
+    if (this.W !== window.innerWidth || this.H !== window.innerHeight) {
+      this.W = this.particles.opts.W = this.canvas.width = window.innerWidth; // eslint-disable-line
+      this.H = this.particles.opts.H = this.canvas.height = window.innerHeight; // eslint-disable-line
+    }
   }
 
   /**
    * Run the main animation loop.
    */
   mainLoop(time) {
-    this.canvas.updateDimensions();
-    this.canvas.clear();
-
+    this.updateDimensions();
+    this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+    this.ctx.clearRect(0, 0, this.W, this.H);
     this.windSpeed = Math.sin(time / 8000) * this.windSpeedMax;
-    this.wind = this.particles.particleOptions.wind += this.windChange; // eslint-disable-line
+    this.wind = this.particles.opts.wind += this.windChange; // eslint-disable-line
 
     while (this.droppedCount < this.particlesPerFrame) {
       this.droppedCount += 1;

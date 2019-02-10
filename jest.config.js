@@ -1,6 +1,6 @@
 module.exports = {
   collectCoverageFrom: [
-    'src/{**/,}*.js',
+    'src/*.js',
   ],
   setupFiles: [
     'jest-canvas-mock',
