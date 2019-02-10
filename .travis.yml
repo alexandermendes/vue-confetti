@@ -6,25 +6,26 @@ node_js:
   - '10'
 
 stages:
-  - compile
+  - build
   - test
   - release
   - deploy
 
 jobs:
   include:
-    - name: compile
+    - stage: build
       script: npm install
       script: npm run build
-    - name: test
+    - stage: test
       script: npm run test
-    - name: release
+    - stage: release
+      if: branch = master
       script: npx semantic-release
-    - name: deploy
+    - stage: deploy
+      if: branch = master
+      script: skip # to not run Travis' default script
       deploy:
-      provider: pages
-      local-dir: dist
-      skip-cleanup: true
-      github-token: $GITHUB_TOKEN
-      on:
-        branch: master
+        provider: pages
+        local-dir: dist
+        skip-cleanup: true
+        github-token: $GITHUB_TOKEN
