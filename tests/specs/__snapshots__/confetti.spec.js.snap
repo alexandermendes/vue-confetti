@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Confetti is initialised with default settings 1`] = `
+Confetti {
+  "H": 0,
+  "W": 0,
+  "animationId": null,
+  "canvas": null,
+  "ctx": null,
+  "droppedCount": 0,
+  "maxParticles": 150,
+  "maxParticlesPerFrame": 2,
+  "onResizeCallback": [Function],
+  "particles": Object {},
+  "particlesPerFrame": 1.5,
+  "wind": 0,
+  "windChange": 0.01,
+  "windPosCoef": 0.002,
+  "windSpeed": 1,
+  "windSpeedMax": 1,
+}
+`;

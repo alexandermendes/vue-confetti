@@ -1,13 +1,13 @@
-import Confetti from './confetti'
+import Confetti from './confetti';
 
-export { Confetti }
+export { Confetti };
 
 export default {
-  install (Vue, options) {
+  install(Vue, options) {
     if (this.installed) {
-      return
+      return;
     }
-    this.installed = true
-    Vue.prototype.$confetti = new Confetti(options)
-  }
-}
+    this.installed = true;
+    Vue.prototype.$confetti = new Confetti(options);
+  },
+};
