@@ -4,3 +4,4 @@ dist/index.html
 *.config.js
 tests/
 demo/
+coverage/
