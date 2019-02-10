@@ -72,7 +72,10 @@ The following scripts are available for local development:
 # test
 npm run test
 
-# build
+# run with webpack watch
+npm run dev
+
+# build for production
 npm run build
 ```
 

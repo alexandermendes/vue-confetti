@@ -10,7 +10,8 @@
     "pretest": "npm run lint",
     "test": "jest",
     "coverage": "jest --coverage",
-    "build": "webpack"
+    "dev": "webpack --watch",
+    "build": "cross-env NODE_ENV=production webpack"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "@semantic-release/git": "^7.0.8",
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^1.0.1",
+    "cross-env": "^5.2.0",
     "eslint": "^5.3.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",

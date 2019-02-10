@@ -14,7 +14,9 @@ module.exports = {
     ]
   },
 
-  mode: 'production',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+
+  devtool: 'cheap-module-source-map',
 
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -42,6 +44,7 @@ module.exports = {
       new TerserWebpackPlugin({
         cache: true,
         parallel: true,
+        sourceMap: true,
       }),
     ],
   },
