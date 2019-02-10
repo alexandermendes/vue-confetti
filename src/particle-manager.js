@@ -50,9 +50,7 @@ export default class ParticleManger {
    * Replace particles once they have left the screen.
    */
   refresh() {
-    this.items.forEach((item) => {
-      item.kill = true; // eslint-disable-line no-param-reassign
-    });
+    this.items = this.items.map(item => ({ kill: true, ...item }));
     this.pool = [];
   }
 }
