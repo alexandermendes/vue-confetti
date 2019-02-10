@@ -1,9 +1,9 @@
 /**
  * A particle that can be drawn on a canvas.
  */
-export default class Particle {
+export default class BaseParticle {
   /**
-   * Initialise.
+   * Setup.
    * @param {options} opts
    *   The particle options.
    */
@@ -26,17 +26,17 @@ export default class Particle {
     this.shape = shape;
     this.windPosCoef = windPosCoef;
     this.windSpeedMax = windSpeedMax;
-    this.x = Particle.rand(-35, W + 35);
-    this.y = Particle.rand(-30, -35);
-    this.d = Particle.rand(150) + 10; // density
-    this.r = Particle.rand(size, size * 2);
+    this.x = BaseParticle.rand(-35, W + 35);
+    this.y = BaseParticle.rand(-30, -35);
+    this.d = BaseParticle.rand(150) + 10; // density
+    this.r = BaseParticle.rand(size, size * 2);
     this.color = colors.color; // get the next color
-    this.tilt = Particle.rand(10);
+    this.tilt = BaseParticle.rand(10);
     this.tiltAngleIncremental = (
-      (Particle.rand(0.08) + 0.04) * (Particle.rand() < 0.5 ? -1 : 1)
+      (BaseParticle.rand(0.08) + 0.04) * (BaseParticle.rand() < 0.5 ? -1 : 1)
     );
     this.tiltAngle = 0;
-    this.angle = Particle.rand(Math.PI * 2);
+    this.angle = BaseParticle.rand(Math.PI * 2);
     this.count = count + 1;
     return this;
   }
@@ -73,45 +73,6 @@ export default class Particle {
   }
 
   /**
-   * Draw a round particle.
-   */
-  drawCircle() {
-    this.ctx.arc(0, 0, (this.r / 2), 0, Math.PI * 2, false);
-    this.ctx.fill();
-  }
-
-  /**
-   * Draw a rectangular particle.
-   */
-  drawRect() {
-    this.ctx.fillRect(0, 0, this.r, this.r / 2);
-  }
-
-  /**
-   * Draw a heart-shaped particle.
-   */
-  drawHeart() {
-    const curveTo = (cp1x, cp1y, cp2x, cp2y, x, y) => {
-      this.ctx.bezierCurveTo(
-        cp1x / this.r * 2,
-        cp1y / this.r * 2,
-        cp2x / this.r * 2,
-        cp2y / this.r * 2,
-        x / this.r * 2,
-        y / this.r * 2,
-      );
-    };
-    this.ctx.moveTo(37.5 / this.r, 20 / this.r);
-    curveTo(75, 37, 70, 25, 50, 25);
-    curveTo(20, 25, 20, 62.5, 20, 62.5);
-    curveTo(20, 80, 40, 102, 75, 120);
-    curveTo(110, 102, 130, 80, 130, 62.5);
-    curveTo(130, 62.5, 130, 25, 100, 25);
-    curveTo(85, 25, 75, 37, 75, 40);
-    this.ctx.fill();
-  }
-
-  /**
    * Draw a particle.
    */
   draw() {
@@ -120,15 +81,10 @@ export default class Particle {
     this.ctx.setTransform(
       Math.cos(this.tiltAngle), // set the x axis to the tilt angle
       Math.sin(this.tiltAngle),
-      0, 1,
-      this.x, this.y, // set the origin
+      0,
+      1,
+      this.x,
+      this.y, // set the origin
     );
-    if (this.shape === 'circle') {
-      this.drawCircle();
-    } else if (this.shape === 'rect') {
-      this.drawRect();
-    } else if (this.shape === 'heart') {
-      this.drawHeart();
-    }
   }
 }

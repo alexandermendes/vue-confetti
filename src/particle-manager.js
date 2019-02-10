@@ -1,9 +1,9 @@
-import Particle from './particle';
+import particleFactory from './factories/particle';
 
 /**
  * A particle generation and management service.
  */
-export default class Particles {
+export default class ParticleManger {
   /**
    * Initialise.
    * @param {object} opts
@@ -20,7 +20,9 @@ export default class Particles {
    */
   update() {
     this.items.filter(item => item.update()).forEach((item, index) => {
-      this.pool.push(this.items.splice(index - 1, 1)[0]);
+      const particle = this.items.splice(index - 1, 1)[0];
+      particle.setup(this.opts);
+      this.pool.push(particle);
     });
   }
 
@@ -38,7 +40,7 @@ export default class Particles {
     if (this.pool.length > 0) {
       this.items.push(this.pool.pop().setup(this.opts));
     } else {
-      this.items.push(new Particle().setup(this.opts));
+      this.items.push(particleFactory(this.opts).setup(this.opts));
     }
   }
 }

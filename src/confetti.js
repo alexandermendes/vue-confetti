@@ -1,4 +1,4 @@
-import Particles from './particles';
+import ParticleManager from './particle-manager';
 
 /**
  * A class to drawing confetti onto a canvas.
@@ -75,7 +75,7 @@ export default class Confetti {
    */
   createParticles(opts = {}) {
     const particleOpts = this.particleOptions(opts);
-    this.particles = new Particles(particleOpts);
+    this.particles = new ParticleManager(particleOpts);
   }
 
   /**
