@@ -65,6 +65,7 @@ The following options can be passed to `$confetti.start()` or `$confetti.update(
 |----------|-------------------|-----------------------------------------------------------------|-----------|
 | shape    | String            | The shape of the confetti (`'circle'`, `'rect'`, or `'heart'`). | 'circle'  |
 | size     | Number            | The size of the particles (should be a positive number).        | 10        |
+| dropRate | Number            | The speed at which the particles fall.                          | 10        |
 | colors   | Array             | The confetti colors.                                            | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
 
 ### Example

@@ -16,6 +16,7 @@ export default (options) => {
   const defaults = {
     shape: 'circle',
     size: 10,
+    dropRate: 10,
     colors: [
       'DodgerBlue',
       'OliveDrab',
@@ -32,22 +33,20 @@ export default (options) => {
     ],
   };
 
-  Object.assign(defaults, options);
+  const opts = Object.assign(defaults, options);
 
-  const { shape, colors, size } = defaults;
-
-  // Get a random color from the array
-  const colorIndex = getRandomNumber(0, colors.length, true);
-  const color = colors[colorIndex];
+  // Set a random color from the array
+  const colorIndex = getRandomNumber(0, opts.colors.length, true);
+  opts.color = opts.colors[colorIndex];
 
   // Generate a particle of the given shape
-  if (shape === 'circle') {
-    return new CircleParticle({ color, size });
-  } if (shape === 'rect') {
-    return new RectParticle({ color, size });
-  } if (shape === 'heart') {
-    return new HeartParticle({ color, size });
+  if (opts.shape === 'circle') {
+    return new CircleParticle(opts);
+  } if (opts.shape === 'rect') {
+    return new RectParticle(opts);
+  } if (opts.shape === 'heart') {
+    return new HeartParticle(opts);
   }
 
-  throw Error(`Unkown particle shape: "${shape}"`);
+  throw Error(`Unkown particle shape: "${opts.shape}"`);
 };

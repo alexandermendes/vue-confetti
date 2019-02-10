@@ -8,12 +8,21 @@ export default class BaseParticle {
    * Initialise.
    * @param {object} options
    *   The particle options.
-   * @param {object} options.color
+   * @param {string} options.color
    *   The particle color.
+   * @param {number} options.size
+   *   The particle size.
+   * @param {number} options.dropRate
+   *   The speed at which particles fall.
    */
-  constructor({ color = 'blue', size = 10 } = {}) {
+  constructor({
+    color = 'blue',
+    size = 10,
+    dropRate = 10,
+  } = {}) {
     this.color = color;
     this.size = size;
+    this.dropRate = dropRate;
   }
 
   /**
@@ -55,7 +64,7 @@ export default class BaseParticle {
       Math.cos(this.wind + (this.d + this.x + this.y) * this.windPosCoef)
       * 0.2 + 1
     ));
-    this.y += (Math.cos(this.angle + this.d) + 3 + this.r / 2) / 2;
+    this.y += (Math.cos(this.angle + this.d) + parseInt(this.dropRate, 10)) / 2;
     this.x += Math.sin(this.angle);
     this.x += Math.cos(
       this.wind + (this.d + this.x + this.y) * this.windPosCoef,
