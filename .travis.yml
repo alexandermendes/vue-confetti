@@ -8,8 +8,10 @@ node_js:
 stages:
   - build
   - test
-  - release
-  - deploy
+  - name: release
+    if: branch = master
+  - name: deploy
+    if: branch = master
 
 jobs:
   include:
@@ -22,7 +24,6 @@ jobs:
       if: branch = master
       script: npx semantic-release
     - stage: deploy
-      if: branch = master
       script: skip # to not run Travis' default script
       deploy:
         provider: pages
