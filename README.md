@@ -61,14 +61,17 @@ npm install vue-confetti --save
 
 The following options can be passed to `$confetti.start()` or `$confetti.update()`:
 
-| Property | Type              | Description                                                     | Default   |
-|----------|-------------------|-----------------------------------------------------------------|-----------|
-| shape    | String            | The shape of the confetti (`'circle'`, `'rect'`, or `'heart'`). | 'circle'  |
-| size     | Number            | The size of the particles (should be a positive number).        | 10        |
-| dropRate | Number            | The speed at which the particles fall.                          | 10        |
-| colors   | Array             | The confetti colors.                                            | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
+| Property | Type              | Description                                                               | Default   |
+|----------|-------------------|---------------------------------------------------------------------------|-----------|
+| shape    | String            | The shape of the confetti (`'circle'`, `'rect'`, `'heart'` or `'image'`). | 'circle'  |
+| size     | Number            | The size of the particles (should be a positive number).                  | 10        |
+| dropRate | Number            | The speed at which the particles fall.                                    | 10        |
+| colors   | Array             | The confetti colors.                                                      | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
+| image    | string            | The path to a custom image or SVG to use as the particle. Note that `shape` must be set to `image`. | null        |
 
-### Example
+### Examples
+
+#### Red and pink hearts:
 
 ``` js
 $confetti.start({
@@ -78,6 +81,15 @@ $confetti.start({
     'pink',
     '#ba0000',
   ],
+});
+```
+
+#### Custom image:
+
+``` js
+$confetti.start({
+  shape: 'image',
+  image: 'http://placekitten.com/50/50',
 });
 ```
 
@@ -94,6 +106,9 @@ npm run dev
 
 # build for production
 npm run build
+
+# serve the demo page (watch for changes from another terminal)
+npm run demo
 ```
 
 Note that vue-confetti enforces

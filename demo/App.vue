@@ -28,6 +28,17 @@
         <option value="rect">Rectangle</option>
         <option value="circle">Circle</option>
         <option value="heart">Heart</option>
+        <option value="image">Custom Image</option>
+      </select>
+    </div>
+
+    <div style="margin: 5px;" v-if="shape === 'image'">
+      <label for="custom-image-type" style="margin-right: 5px;">
+        <small>Custom image type:</small>
+      </label>
+      <select v-model="customImageType" id="custom-image-type">
+        <option value="image">Image</option>
+        <option value="svg">SVG</option>
       </select>
     </div>
 
@@ -50,6 +61,7 @@
         shape: 'rect',
         size: 10,
         dropRate: 10,
+        customImageType: 'image',
       };
     },
 
@@ -59,7 +71,15 @@
           shape: this.shape,
           size: this.size,
           dropRate: this.dropRate,
+          image: this.image,
         }
+      },
+
+      image() {
+        return {
+          image: 'http://placekitten.com/50/50',
+          svg: 'svgs/github-icon.svg',
+        }[this.customImageType];
       },
     },
 

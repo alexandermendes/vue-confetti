@@ -17,6 +17,6 @@ describe('RectParticle', () => {
     particle.draw();
 
     expect(ctx.fillRect).toHaveBeenCalledTimes(1);
-    expect(ctx.fillRect).toHaveBeenCalledWith(0, 0, particle.r, particle.r / 2);
+    expect(ctx.fillRect).toHaveBeenCalledWith(0, 0, particle.particleSize, particle.particleSize / 2);
   });
 });
