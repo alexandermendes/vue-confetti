@@ -46,7 +46,7 @@ export default class Canvas {
    *   The canvas height.
    */
   get height() {
-    return this.canvas.width;
+    return this.canvas.height;
   }
 
   /**
