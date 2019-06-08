@@ -4,10 +4,13 @@
 export default class Canvas {
   /**
    * Initialise.
+   * @param {string} [canvasId]
+   *   An optional CSS ID pointing to a canvas to override the default.
    */
-  constructor() {
-    this.canvas = Canvas.createDefaultCanvas();
+  constructor(canvasId) {
+    this.canvas = canvasId ? document.getElementById(canvasId) : Canvas.createDefaultCanvas();
     this.ctx = this.canvas.getContext('2d');
+    this.isDefault = canvasId === null || typeof canvasId === 'undefined';
   }
 
   /**
@@ -58,6 +61,10 @@ export default class Canvas {
    * Update the canvas dimensions, if necessary.
    */
   updateDimensions() {
+    if (!this.isDefault) {
+      return;
+    }
+
     if (this.width !== window.innerWidth || this.height !== window.innerHeight) {
       this.canvas.width = window.innerWidth;
       this.canvas.height = window.innerHeight;
@@ -65,9 +72,9 @@ export default class Canvas {
   }
 
   /**
-   * Remove the non-custom canvas from the document.
+   * Clear the canvas.
    */
-  destroy() {
-    document.body.removeChild(this.canvas);
+  clearCanvas() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
   }
 }

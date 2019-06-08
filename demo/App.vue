@@ -15,7 +15,7 @@
 
     <div style="margin: 5px;">
       <label for="drop-rate" style="margin-right: 5px;">
-        <small>Drop Rate:</small>
+        <small>Drop rate:</small>
       </label>
       <input v-model="dropRate" id="drop-rate" type="number" min="1" max="20" step="1">
     </div>
@@ -42,6 +42,22 @@
       </select>
     </div>
 
+    <div style="margin: 5px;">
+      <label for="drop-rate" style="margin-right: 5px;">
+        <small>Use custom canvas</small>
+      </label>
+      <input v-model="customCanvas" type="checkbox" />
+    </div>
+
+    <div style="margin: 5px;">
+      <canvas
+        id="custom-canvas"
+        width="200"
+        height="100"
+        style="border:1px solid #000000;"
+      />
+    </div>
+
     <a
       href="https://badge.fury.io/js/vue-confetti"
       style="display: flex; margin: 5px;">
@@ -62,6 +78,7 @@
         size: 10,
         dropRate: 10,
         customImageType: 'image',
+        customCanvas: false,
       };
     },
 
@@ -72,6 +89,7 @@
           size: this.size,
           dropRate: this.dropRate,
           image: this.image,
+          canvasId: this.canvasId,
         }
       },
 
@@ -80,6 +98,10 @@
           image: 'http://placekitten.com/50/50',
           svg: 'svgs/github-icon.svg',
         }[this.customImageType];
+      },
+
+      canvasId() {
+        return this.customCanvas ? 'custom-canvas' : null;
       },
     },
 

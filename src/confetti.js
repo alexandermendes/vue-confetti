@@ -17,6 +17,7 @@ export default class Confetti {
    */
   setDefaults() {
     this.canvas = null;
+    this.canvasId = null;
     this.W = 0;
     this.H = 0;
     this.particles = null;
@@ -63,8 +64,9 @@ export default class Confetti {
    *   The particle options.
    */
   start(opts) {
-    if (!this.canvas) {
-      this.canvas = new Canvas();
+    if (!this.canvas || opts.canvasId !== this.canvasId) {
+      this.canvas = new Canvas(opts.canvasId);
+      this.canvasId = opts.canvasId;
     }
 
     if (this.animationId) {
@@ -75,6 +77,14 @@ export default class Confetti {
     this.canvas.updateDimensions();
     this.particlesPerFrame = this.maxParticlesPerFrame;
     this.animationId = requestAnimationFrame(this.mainLoop.bind(this));
+  }
+
+  moveContextToNewCanvas(canvasId) {
+    const newCanvas = new Canvas(canvasId);
+    newCanvas.ctx.drawImage(this.canvas.canvas, 0, 0);
+    this.canvas.clearCanvas();
+    this.canvas = newCanvas;
+    this.canvasId = canvasId;
   }
 
   /**
@@ -88,6 +98,12 @@ export default class Confetti {
    * Update the confetti options.
    */
   update(opts) {
+    if (this.canvas && opts.canvasId !== this.canvasId) {
+      this.stop();
+      this.canvas.clear();
+      this.start(opts);
+    }
+
     if (this.particles) {
       this.particles.particleOptions = this.particleOptions(opts);
       this.particles.refresh();
@@ -103,7 +119,7 @@ export default class Confetti {
       cancelAnimationFrame(this.animationId);
     }
 
-    this.canvas.destroy();
+    this.canvas.clearCanvas();
     this.setDefaults();
   }
 
