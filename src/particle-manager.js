@@ -17,16 +17,30 @@ export default class ParticleManger {
   }
 
   /**
-   * Move the particle back to the pool if it is past the bottom.
+   * Update the position of each particle.
+   *
+   * Moves particles back to the pool if past the bottom and not due for removal.
    */
   update() {
-    this.items.filter(item => item.update()).forEach((item, index) => {
-      const particle = this.items.splice(index - 1, 1)[0];
-      particle.setup(this.particleOptions);
-      if (!particle.kill) {
-        this.pool.push(particle);
+    const oldItems = [];
+    const newItems = [];
+
+    this.items.forEach((particle) => {
+      particle.update();
+
+      if (particle.pastBottom()) {
+        if (!particle.remove) {
+          particle.setup(this.particleOptions);
+          oldItems.push(particle);
+        }
+      } else {
+        newItems.push(particle);
       }
     });
+
+    this.pool.push(...oldItems);
+
+    this.items = newItems;
   }
 
   /**
@@ -56,6 +70,7 @@ export default class ParticleManger {
     this.items.forEach((item) => {
       item.kill();
     });
+
     this.pool = [];
   }
 }

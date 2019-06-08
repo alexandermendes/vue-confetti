@@ -101,6 +101,8 @@ describe('Canvas', () => {
     it('maintains the width and height if unchanged', () => {
       const { width, height } = defaultCanvas.canvas;
 
+      window.innerWidth = width;
+      window.innerHeight = height;
       defaultCanvas.updateDimensions();
 
       expect(defaultCanvas.canvas.height).toEqual(height);

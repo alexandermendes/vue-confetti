@@ -21,6 +21,13 @@
     </div>
 
     <div style="margin: 5px;">
+      <label for="drop-rate" style="margin-right: 5px;">
+        <small>Particles per frame:</small>
+      </label>
+      <input v-model="particlesPerFrame" id="particles" type="number" min="1" max="100" step="1">
+    </div>
+
+    <div style="margin: 5px;">
       <label for="shape" style="margin-right: 5px;">
         <small>Shape:</small>
       </label>
@@ -79,6 +86,7 @@
         dropRate: 10,
         customImageType: 'image',
         customCanvas: false,
+        particlesPerFrame: 2,
       };
     },
 
@@ -90,6 +98,7 @@
           dropRate: this.dropRate,
           image: this.image,
           canvasId: this.canvasId,
+          particlesPerFrame: this.particlesPerFrame,
         }
       },
 

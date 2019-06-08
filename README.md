@@ -61,14 +61,15 @@ npm install vue-confetti --save
 
 The following options can be passed to `$confetti.start()` or `$confetti.update()`:
 
-| Property | Type   | Description                                                               | Default   |
-|----------|--------|---------------------------------------------------------------------------|-----------|
-| shape    | String | The shape of the confetti (`'circle'`, `'rect'`, `'heart'` or `'image'`). | 'circle'  |
-| size     | Number | The size of the particles (should be a positive number).                  | 10        |
-| dropRate | Number | The speed at which the particles fall.                                    | 10        |
-| colors   | Array  | The confetti colors.                                                      | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
-| image    | String | The path to a custom image or SVG to use as the particle. Note that `shape` must be set to `image`. | null |
-| canvasId | String | The ID for a custom canvas element (the default is to append a canvas to the `<body>` element). | null |
+| Property          | Type   | Description                                                               | Default   |
+|-------------------|--------|---------------------------------------------------------------------------|-----------|
+| shape             | String | The shape of the confetti (`'circle'`, `'rect'`, `'heart'` or `'image'`). | 'circle'  |
+| size              | Number | The size of the particles (should be a positive number).                  | 10        |
+| dropRate          | Number | The speed at which the particles fall.                                    | 10        |
+| colors            | Array  | The confetti colors.                                                      | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
+| image             | String | The path to a custom image or SVG to use as the particle. Note that `shape` must be set to `image`. | null |
+| canvasId          | String | The ID for a custom canvas element (the default is to append a canvas to the `<body>` element).     | null |
+| particlesPerFrame | Number | The number of particles to drop per animation frame.                      | 2         |
 
 ### Examples
 
@@ -99,6 +100,16 @@ $confetti.start({
 ``` js
 $confetti.start({
   canvasId: 'my-custom-canvas',
+});
+```
+
+#### Alternative particles per frame, drop rate and size:
+
+``` js
+$confetti.start({
+  particlesPerFrame: 0.25,
+  dropRate: 3,
+  size: 5,
 });
 ```
 
