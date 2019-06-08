@@ -3,6 +3,7 @@ import {
   CircleParticle,
   RectParticle,
   HeartParticle,
+  ImageParticle,
 } from '../particles';
 
 /**
@@ -31,6 +32,7 @@ export default (options) => {
       'Chocolate',
       'Crimson',
     ],
+    image: null,
   };
 
   const opts = Object.assign(defaults, options);
@@ -42,10 +44,12 @@ export default (options) => {
   // Generate a particle of the given shape
   if (opts.shape === 'circle') {
     return new CircleParticle(opts);
-  } if (opts.shape === 'rect') {
+  } else if (opts.shape === 'rect') {
     return new RectParticle(opts);
-  } if (opts.shape === 'heart') {
+  } else if (opts.shape === 'heart') {
     return new HeartParticle(opts);
+  } else if (opts.shape === 'image') {
+    return new ImageParticle(opts, opts.image);
   }
 
   throw Error(`Unkown particle shape: "${opts.shape}"`);

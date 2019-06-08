@@ -28,6 +28,7 @@
         <option value="rect">Rectangle</option>
         <option value="circle">Circle</option>
         <option value="heart">Heart</option>
+        <option value="image">Custom Image</option>
       </select>
     </div>
 
@@ -59,6 +60,7 @@
           shape: this.shape,
           size: this.size,
           dropRate: this.dropRate,
+          image: this.getImageElement(),
         }
       },
     },
@@ -71,6 +73,12 @@
       stop () {
         this.$confetti.stop();
       },
+
+      getImageElement() {
+        const img = document.createElement('img');
+        img.setAttribute('src', 'http://placekitten.com/50/50');
+        return img;
+      }
     },
 
     watch: {

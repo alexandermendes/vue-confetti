@@ -61,14 +61,17 @@ npm install vue-confetti --save
 
 The following options can be passed to `$confetti.start()` or `$confetti.update()`:
 
-| Property | Type              | Description                                                     | Default   |
-|----------|-------------------|-----------------------------------------------------------------|-----------|
-| shape    | String            | The shape of the confetti (`'circle'`, `'rect'`, or `'heart'`). | 'circle'  |
-| size     | Number            | The size of the particles (should be a positive number).        | 10        |
-| dropRate | Number            | The speed at which the particles fall.                          | 10        |
-| colors   | Array             | The confetti colors.                                            | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
+| Property | Type              | Description                                                               | Default   |
+|----------|-------------------|---------------------------------------------------------------------------|-----------|
+| shape    | String            | The shape of the confetti (`'circle'`, `'rect'`, `'heart'` or `'image'`). | 'circle'  |
+| size     | Number            | The size of the particles (should be a positive number).                  | 10        |
+| dropRate | Number            | The speed at which the particles fall.                                    | 10        |
+| colors   | Array             | The confetti colors.                                                      | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
+| image    | [CanvasImageSource](https://developer.mozilla.org/en-US/docs/Web/API/CanvasImageSource) | A custom image, SVG or video element to be used as the particle. Note that `shape` must be set to `image`. | null        |
 
-### Example
+### Examples
+
+#### Red and pink hearts:
 
 ``` js
 $confetti.start({
@@ -78,6 +81,18 @@ $confetti.start({
     'pink',
     '#ba0000',
   ],
+});
+```
+
+#### Custom image:
+
+``` js
+const image = document.createElement('img');
+image.setAttribute('src', 'http://placekitten.com/50/50');
+
+$confetti.start({
+  shape: 'image',
+  image,
 });
 ```
 
