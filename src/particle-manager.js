@@ -22,19 +22,27 @@ export default class ParticleManger {
    * Moves particles back to the pool if past the bottom and not due for removal.
    */
   update() {
-    this.items.reverse().forEach((particle, index) => {
+    const oldItems = [];
+    const newItems = [];
+
+    this.items.forEach((particle) => {
       particle.update();
 
       if (particle.pastBottom()) {
-        const removedParticle = this.items.splice(index, 1)[0];
-
-        if (!removedParticle.remove) {
-          removedParticle.setup(this.particleOptions);
-
-          this.pool.push(removedParticle);
+        if (!particle.remove) {
+          oldItems.push(particle);
         }
+      } else {
+        newItems.push(particle);
       }
     });
+
+    oldItems.forEach((particle) => {
+      particle.setup(this.particleOptions);
+      this.pool.push(particle);
+    });
+
+    this.items = newItems;
   }
 
   /**
