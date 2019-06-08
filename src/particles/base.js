@@ -44,7 +44,7 @@ export default class BaseParticle {
     this.x = getRandomNumber(-35, this.canvas.width + 35);
     this.y = getRandomNumber(-30, -35);
     this.d = getRandomNumber(150) + 10; // density
-    this.r = getRandomNumber(this.size, this.size * 2);
+    this.particleSize = getRandomNumber(this.size, this.size * 2);
     this.tilt = getRandomNumber(10);
     this.tiltAngleIncremental = (
       (getRandomNumber(0, 0.08) + 0.04) * (getRandomNumber() < 0.5 ? -1 : 1)
