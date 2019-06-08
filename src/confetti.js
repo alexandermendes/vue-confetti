@@ -82,7 +82,7 @@ export default class Confetti {
   moveContextToNewCanvas(canvasId) {
     const newCanvas = new Canvas(canvasId);
     newCanvas.ctx.drawImage(this.canvas.canvas, 0, 0);
-    this.canvas.clearCanvas();
+    this.canvas.clear();
     this.canvas = newCanvas;
     this.canvasId = canvasId;
   }
@@ -119,7 +119,7 @@ export default class Confetti {
       cancelAnimationFrame(this.animationId);
     }
 
-    this.canvas.clearCanvas();
+    this.canvas.clear();
     this.setDefaults();
   }
 

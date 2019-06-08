@@ -70,11 +70,4 @@ export default class Canvas {
       this.canvas.height = window.innerHeight;
     }
   }
-
-  /**
-   * Clear the canvas.
-   */
-  clearCanvas() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-  }
 }
