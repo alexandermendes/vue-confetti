@@ -71,19 +71,15 @@
           shape: this.shape,
           size: this.size,
           dropRate: this.dropRate,
-          image: this.imageElement,
+          image: this.image,
         }
       },
 
-      imageElement() {
-        const source = {
+      image() {
+        return {
           image: 'http://placekitten.com/50/50',
           svg: 'svgs/github-icon.svg',
         }[this.customImageType];
-
-        const imgEl = document.createElement('img');
-        imgEl.setAttribute('src', source);
-        return imgEl;
       },
     },
 

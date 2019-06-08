@@ -1,4 +1,4 @@
-import particleFactory from './factories/particle';
+import ParticleFactory from './factories/particle';
 
 /**
  * A particle generation and management service.
@@ -13,6 +13,7 @@ export default class ParticleManger {
     this.items = [];
     this.pool = [];
     this.particleOptions = particleOptions;
+    this.particleFactory = new ParticleFactory();
   }
 
   /**
@@ -42,7 +43,9 @@ export default class ParticleManger {
     if (this.pool.length > 0) {
       this.items.push(this.pool.pop().setup(this.particleOptions));
     } else {
-      this.items.push(particleFactory(this.particleOptions).setup(this.particleOptions));
+      this.items.push(
+        this.particleFactory.create(this.particleOptions).setup(this.particleOptions),
+      );
     }
   }
 

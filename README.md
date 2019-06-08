@@ -67,7 +67,7 @@ The following options can be passed to `$confetti.start()` or `$confetti.update(
 | size     | Number            | The size of the particles (should be a positive number).                  | 10        |
 | dropRate | Number            | The speed at which the particles fall.                                    | 10        |
 | colors   | Array             | The confetti colors.                                                      | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
-| image    | [CanvasImageSource](https://developer.mozilla.org/en-US/docs/Web/API/CanvasImageSource) | A custom image, SVG or video element to be used as the particle. Note that `shape` must be set to `image`. | null        |
+| image    | string            | The path to a custom image or SVG to use as the particle. Note that `shape` must be set to `image`. | null        |
 
 ### Examples
 
@@ -87,12 +87,9 @@ $confetti.start({
 #### Custom image:
 
 ``` js
-const image = document.createElement('img');
-image.setAttribute('src', 'http://placekitten.com/50/50');
-
 $confetti.start({
   shape: 'image',
-  image,
+  image: 'http://placekitten.com/50/50',
 });
 ```
 

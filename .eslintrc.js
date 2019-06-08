@@ -3,4 +3,7 @@ module.exports = {
   env: {
     browser: true,
   },
+  rules: {
+    'class-methods-use-this': 'off',
+  },
 };

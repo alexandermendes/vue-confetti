@@ -6,13 +6,13 @@ import BaseParticle from './base';
 export default class ImageParticle extends BaseParticle {
   /**
    * Initialise
-   * @param {Element} element
-   *  An img, svg or video element to pass through to crx.drawImage.
+   * @param {HTMLImageElement} imgEl
+   *  An image element to pass through to ctx.drawImage.
    */
-  constructor(opts, element) {
+  constructor(opts, imgEl) {
     super(opts);
 
-    this.element = element;
+    this.imgEl = imgEl;
   }
 
   /**
@@ -20,6 +20,6 @@ export default class ImageParticle extends BaseParticle {
    */
   draw() {
     super.draw();
-    this.canvas.ctx.drawImage(this.element, 0, 0, this.particleSize, this.particleSize);
+    this.canvas.ctx.drawImage(this.imgEl, 0, 0, this.particleSize, this.particleSize);
   }
 }
