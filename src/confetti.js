@@ -16,19 +16,19 @@ export default class Confetti {
    * Initialize default.
    */
   setDefaults() {
+    this.killed = false;
+    this.framesSinceDrop = 0;
     this.canvas = null;
     this.canvasId = null;
     this.W = 0;
     this.H = 0;
     this.particles = null;
-    this.droppedCount = 0;
-    this.particlesPerFrame = 1.5;
+    this.particlesPerFrame = 0; // max particles dropped per frame
     this.wind = 0;
     this.windSpeed = 1;
     this.windSpeedMax = 1;
     this.windChange = 0.01;
     this.windPosCoef = 0.002;
-    this.maxParticlesPerFrame = 2; // max particles dropped per frame
     this.animationId = null;
   }
 
@@ -75,22 +75,22 @@ export default class Confetti {
 
     this.createParticles(opts);
     this.canvas.updateDimensions();
-    this.particlesPerFrame = this.maxParticlesPerFrame;
+    this.setParticlesPerFrame(opts);
     this.animationId = requestAnimationFrame(this.mainLoop.bind(this));
   }
 
-  moveContextToNewCanvas(canvasId) {
-    const newCanvas = new Canvas(canvasId);
-    newCanvas.ctx.drawImage(this.canvas.canvas, 0, 0);
-    this.canvas.clear();
-    this.canvas = newCanvas;
-    this.canvasId = canvasId;
+  /**
+   * Set the number of particles dropped per frame.
+   */
+  setParticlesPerFrame(opts) {
+    this.particlesPerFrame = opts.particlesPerFrame || 2;
   }
 
   /**
    * Stop dropping confetti.
    */
   stop() {
+    this.killed = true;
     this.particlesPerFrame = 0;
   }
 
@@ -103,6 +103,8 @@ export default class Confetti {
       this.canvas.clear();
       this.start(opts);
     }
+
+    this.setParticlesPerFrame(opts);
 
     if (this.particles) {
       this.particles.particleOptions = this.particleOptions(opts);
@@ -133,18 +135,22 @@ export default class Confetti {
     this.windSpeed = Math.sin(time / 8000) * this.windSpeedMax;
     this.wind = this.particles.particleOptions.wind += this.windChange; // eslint-disable-line
 
-    while (this.droppedCount < this.particlesPerFrame) {
-      this.droppedCount += 1;
+    let numberToAdd = this.framesSinceDrop * this.particlesPerFrame;
+
+    while (numberToAdd >= 1) {
       this.particles.add();
+      numberToAdd -= 1;
+      this.framesSinceDrop = 0;
     }
 
-    this.droppedCount -= this.particlesPerFrame;
     this.particles.update();
     this.particles.draw();
 
     // Stop calling if no particles left in view (i.e. it's been stopped)
-    if (this.particles.items.length) {
+    if (!this.killed || this.particles.items.length) {
       this.animationId = requestAnimationFrame(this.mainLoop.bind(this));
     }
+
+    this.framesSinceDrop += 1;
   }
 }
