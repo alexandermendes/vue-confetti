@@ -30,6 +30,7 @@ export default class ParticleManger {
 
       if (particle.pastBottom()) {
         if (!particle.remove) {
+          particle.setup(this.particleOptions);
           oldItems.push(particle);
         }
       } else {
@@ -37,10 +38,7 @@ export default class ParticleManger {
       }
     });
 
-    oldItems.forEach((particle) => {
-      particle.setup(this.particleOptions);
-      this.pool.push(particle);
-    });
+    this.pool.push(...oldItems);
 
     this.items = newItems;
   }
