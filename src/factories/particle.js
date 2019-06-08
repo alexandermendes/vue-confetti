@@ -41,14 +41,19 @@ export default (options) => {
   const colorIndex = getRandomNumber(0, opts.colors.length, true);
   opts.color = opts.colors[colorIndex];
 
-  // Generate a particle of the given shape
   if (opts.shape === 'circle') {
     return new CircleParticle(opts);
-  } else if (opts.shape === 'rect') {
+  }
+
+  if (opts.shape === 'rect') {
     return new RectParticle(opts);
-  } else if (opts.shape === 'heart') {
+  }
+
+  if (opts.shape === 'heart') {
     return new HeartParticle(opts);
-  } else if (opts.shape === 'image') {
+  }
+
+  if (opts.shape === 'image') {
     return new ImageParticle(opts, opts.image);
   }
 
