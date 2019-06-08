@@ -3,6 +3,7 @@ const TerserWebpackPlugin = require('terser-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const isDev = process.env.NODE_ENV !== 'production';
 
@@ -22,9 +23,9 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
     library: 'vue-confetti',
     libraryTarget: 'umd',
+    filename: isDev ? '[name].[chunkhash].js' : '[name].js', // Hash for the demo only
   },
 
   module: {
@@ -66,5 +67,12 @@ module.exports = {
     }),
 
     new VueLoaderPlugin(),
+
+    new CopyWebpackPlugin([
+      {
+        from:'./demo/svgs',
+        to:'svgs',
+      },
+    ]),
   ],
 };

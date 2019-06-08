@@ -32,6 +32,16 @@
       </select>
     </div>
 
+    <div style="margin: 5px;" v-if="shape === 'image'">
+      <label for="custom-image-type" style="margin-right: 5px;">
+        <small>Custom image type:</small>
+      </label>
+      <select v-model="customImageType" id="custom-image-type">
+        <option value="image">Image</option>
+        <option value="svg">SVG</option>
+      </select>
+    </div>
+
     <a
       href="https://badge.fury.io/js/vue-confetti"
       style="display: flex; margin: 5px;">
@@ -51,6 +61,7 @@
         shape: 'rect',
         size: 10,
         dropRate: 10,
+        customImageType: 'image',
       };
     },
 
@@ -60,8 +71,19 @@
           shape: this.shape,
           size: this.size,
           dropRate: this.dropRate,
-          image: this.getImageElement(),
+          image: this.imageElement,
         }
+      },
+
+      imageElement() {
+        const source = {
+          image: 'http://placekitten.com/50/50',
+          svg: 'svgs/github-icon.svg',
+        }[this.customImageType];
+
+        const imgEl = document.createElement('img');
+        imgEl.setAttribute('src', source);
+        return imgEl;
       },
     },
 
@@ -73,12 +95,6 @@
       stop () {
         this.$confetti.stop();
       },
-
-      getImageElement() {
-        const img = document.createElement('img');
-        img.setAttribute('src', 'http://placekitten.com/50/50');
-        return img;
-      }
     },
 
     watch: {

@@ -109,6 +109,9 @@ npm run dev
 
 # build for production
 npm run build
+
+# serve the demo page (watch for changes from another terminal)
+npm run demo
 ```
 
 Note that vue-confetti enforces
