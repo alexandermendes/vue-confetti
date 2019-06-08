@@ -20,6 +20,6 @@ export default class ImageParticle extends BaseParticle {
    */
   draw() {
     super.draw();
-    this.canvas.ctx.drawImage(this.element, 0, 0);
+    this.canvas.ctx.drawImage(this.element, 0, 0, this.particleSize, this.particleSize);
   }
 }

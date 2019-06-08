@@ -20,6 +20,6 @@ describe('ImageParticle', () => {
     particle.draw();
 
     expect(ctx.drawImage).toHaveBeenCalledTimes(1);
-    expect(ctx.drawImage).toHaveBeenCalledWith(img, 0, 0);
+    expect(ctx.drawImage).toHaveBeenCalledWith(img, 0, 0, particle.particleSize, particle.particleSize);
   });
 });
