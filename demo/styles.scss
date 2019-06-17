@@ -18,6 +18,18 @@ section {
   margin-bottom: 40px;
 }
 
+.header {
+  width: 90%;
+  padding: 0 5%;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: fixed;
+  background: #fff;
+  border-bottom: 1px solid $color-light-grey;
+}
+
 .masthead {
   width: 100%;
   display: flex;
@@ -41,6 +53,7 @@ section {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid $color-light-grey;
+  margin-bottom: 10px;
 
   .table__cell {
     border-bottom: 1px solid $color-light-grey;
@@ -68,12 +81,12 @@ section {
   border-width: 2px;
   border-color: $color-primary;
   border-radius: 3px;
-  margin: 2px;
   padding: 8px 20px;
   color: #fff;
   user-select: none;
   transition: all 250ms;
   cursor: pointer;
+  text-decoration: none;
 
   &:hover,
   &:focus {
@@ -102,6 +115,15 @@ section {
       color: $color-primary;
     }
   }
+
+  &--small {
+    padding: 5px 10px;
+    font-size: 0.8em;
+  }
+}
+
+.button + .button {
+  margin-left: 10px;
 }
 
 .subheading {
