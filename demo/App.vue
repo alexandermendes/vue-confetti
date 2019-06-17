@@ -1,112 +1,165 @@
 <template>
-  <main style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  <main>
+    <header class="masthead">
+      <h1 class="masthead__title">Vue Confetti</h1>
+      <a class="masthead__badge" href="https://badge.fury.io/js/vue-confetti">
+        <img
+          src="https://badge.fury.io/js/vue-confetti.svg"
+          alt="npm version"
+          height="18"
+        >
+      </a>
+      <div class="masthead__buttons">
+        <button class="button" @click="start">Start</button>
+        <button class="button" @click="stop">Stop</button>
+      </div>
+    </header>
 
-    <div style="margin: 5px;">
-      <button @click="start" style="margin: 5px;">Start</button>
-      <button @click="stop" style="margin: 5px;">Stop</button>
-    </div>
+    <section>
+      <h2 class="subheading">Particle Settings</h2>
+      <p class="content">
+        Define the settings for the particles by modifying the table below.
+      </p>
 
-    <div style="margin: 5px;">
-      <label for="size" style="margin-right: 5px;">
-        <small>Size:</small>
-      </label>
-      <input v-model="size" id="size" type="number" min="1" max="100" step="1">
-    </div>
+      <table class="table">
+        <tr>
+          <th class="table__cell table__cell--header">Type</th>
+          <th class="table__cell table__cell--header">Size</th>
+          <th class="table__cell table__cell--header">Drop Rate</th>
+          <th class="table__cell table__cell--header">URL</th>
+          <th class="table__cell table__cell--header">Actions</th>
+        </tr>
+        <tr
+          v-for="(particle, index) in particles"
+          :key="index"
+        >
+          <td class="table__cell">{{ particle.type }}</td>
+          <td class="table__cell">{{ particle.size }}</td>
+          <td class="table__cell">{{ particle.dropRate }}</td>
+          <td class="table__cell">{{ particle.url }}</td>
+          <td class="table__cell">
+            <button class="button button--text" @click="removeRow(index)">Remove</button>
+          </td>
+        </tr>
+      </table>
+      <div class="table__buttons">
+        <button class="button button--secondary" @click="addRow">Add Row</button>
+      </div>
+    </section>
 
-    <div style="margin: 5px;">
-      <label for="drop-rate" style="margin-right: 5px;">
-        <small>Drop rate:</small>
-      </label>
-      <input v-model="dropRate" id="drop-rate" type="number" min="1" max="20" step="1">
-    </div>
+    <section>
+      <h2 class="subheading">Defaults</h2>
+      <p class="content">
+        Define the default particle settings. These settings can be overridden
+        by the associated setting for each particle in the table above.
+      </p>
+      <particle-options
+        v-model="defaultOptions"
+      />
+    </section>
 
-    <div style="margin: 5px;">
-      <label for="drop-rate" style="margin-right: 5px;">
-        <small>Particles per frame:</small>
-      </label>
-      <input v-model="particlesPerFrame" id="particles" type="number" min="1" max="100" step="1">
-    </div>
+    <section>
+      <h2 class="subheading">Global Settings</h2>
+      <p class="content">
+        The settings below apply to all particles.
+      </p>
 
-    <div style="margin: 5px;">
-      <label for="shape" style="margin-right: 5px;">
-        <small>Shape:</small>
-      </label>
-      <select v-model="shape" id="shape">
-        <option value="rect">Rectangle</option>
-        <option value="circle">Circle</option>
-        <option value="heart">Heart</option>
-        <option value="image">Custom Image</option>
-      </select>
-    </div>
+      <div class="input-group">
+        <label for="particles-per-frame">
+          <small>Particles per frame:</small>
+        </label>
+        <input
+          v-model="particlesPerFrame"
+          id="particles-per-frame"
+          class="input"
+          type="number"
+          min="1"
+          max="100"
+          step="1"
+        >
+      </div>
 
-    <div style="margin: 5px;" v-if="shape === 'image'">
-      <label for="custom-image-type" style="margin-right: 5px;">
-        <small>Custom image type:</small>
-      </label>
-      <select v-model="customImageType" id="custom-image-type">
-        <option value="image">Image</option>
-        <option value="svg">SVG</option>
-      </select>
-    </div>
+    </section>
 
-    <div style="margin: 5px;">
-      <label for="drop-rate" style="margin-right: 5px;">
-        <small>Use custom canvas</small>
-      </label>
-      <input v-model="customCanvas" type="checkbox" />
-    </div>
+    <section>
+      <h2 class="subheading">Custom Canvas</h2>
+      <p class="content">
+        The confetti can be attached to a custom canvas.
+      </p>
 
-    <div style="margin: 5px;">
+      <div class="input-group">
+        <label for="custom-canvas-cb">
+          <small>Use custom canvas</small>
+        </label>
+        <input
+          v-model="customCanvas"
+          type="checkbox"
+          class="input input--checkbox"
+          id="custom-canvas-cb"
+        />
+      </div>
+
       <canvas
         id="custom-canvas"
-        width="200"
-        height="100"
+        width="500"
+        height="200"
         style="border:1px solid #000000;"
       />
-    </div>
 
-    <a
-      href="https://badge.fury.io/js/vue-confetti"
-      style="display: flex; margin: 5px;">
-      <img
-        src="https://badge.fury.io/js/vue-confetti.svg"
-        alt="npm version"
-        height="18">
-    </a>
+    </section>
+
+    <particle-modal
+      :show="showParticleModal"
+      @close="showParticleModal = false"
+      @add="addParticle"
+    />
 
   </main>
 </template>
 
 <script>
+  import ParticleOptions from './ParticleOptions.vue';
+  import ParticleModal from './ParticleModal.vue';
+
   export default {
     data() {
       return {
-        shape: 'rect',
-        size: 10,
-        dropRate: 10,
-        customImageType: 'image',
+        showParticleModal: false,
+        particles:[
+          {
+            type: 'circle',
+            size: 10,
+          },
+          {
+            type: 'rect',
+            size: 10,
+            dropRate: 10,
+          },
+        ],
+
         customCanvas: false,
         particlesPerFrame: 2,
+        defaultOptions: {},
       };
+    },
+
+    components: {
+      ParticleOptions,
+      ParticleModal,
     },
 
     computed: {
       options() {
         return {
-          shape: this.shape,
-          size: this.size,
-          dropRate: this.dropRate,
-          image: this.image,
+          particles: this.particles,
+          customCanvas: false,
+          particlesPerFrame: 2,
+          defaultType: this.defaultOptions.type,
+          defaultSize: this.defaultOptions.size,
+          defaultDropRate: this.defaultOptions.dropRate,
           canvasId: this.canvasId,
           particlesPerFrame: this.particlesPerFrame,
         }
-      },
-
-      image() {
-        return {
-          image: 'http://placekitten.com/50/50',
-          svg: 'svgs/github-icon.svg',
-        }[this.customImageType];
       },
 
       canvasId() {
@@ -115,12 +168,24 @@
     },
 
     methods: {
-      start () {
+      start() {
         this.$confetti.start(this.options);
       },
 
-      stop () {
+      stop() {
         this.$confetti.stop();
+      },
+
+      addRow() {
+        this.showParticleModal = true;
+      },
+
+      removeRow(index) {
+        this.particles.splice(index, 1);
+      },
+
+      addParticle(options) {
+        this.particles.push(options);
       },
     },
 
