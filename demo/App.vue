@@ -16,9 +16,20 @@
     </header>
 
     <section>
+      <h2 class="subheading">Defaults</h2>
+      <p class="content">
+        Define the default particle settings. These settings can be overridden
+        by the associated particle settings in the table below.
+      </p>
+      <particle-options
+        v-model="defaultOptions"
+      />
+    </section>
+
+    <section>
       <h2 class="subheading">Particle Settings</h2>
       <p class="content">
-        Define the settings for the particles by modifying the table below.
+        Define custom settings for multiple particle types.
       </p>
 
       <table class="table">
@@ -33,10 +44,10 @@
           v-for="(particle, index) in particles"
           :key="index"
         >
-          <td class="table__cell">{{ particle.type }}</td>
-          <td class="table__cell">{{ particle.size }}</td>
-          <td class="table__cell">{{ particle.dropRate }}</td>
-          <td class="table__cell">{{ particle.url }}</td>
+          <td class="table__cell">{{ particle.type || 'default'  }}</td>
+          <td class="table__cell">{{ particle.size || 'default' }}</td>
+          <td class="table__cell">{{ particle.dropRate || 'default'  }}</td>
+          <td class="table__cell">{{ particle.url || 'none'  }}</td>
           <td class="table__cell">
             <button class="button button--text" @click="removeRow(index)">Remove</button>
           </td>
@@ -45,17 +56,6 @@
       <div class="table__buttons">
         <button class="button button--secondary" @click="addRow">Add Row</button>
       </div>
-    </section>
-
-    <section>
-      <h2 class="subheading">Defaults</h2>
-      <p class="content">
-        Define the default particle settings. These settings can be overridden
-        by the associated setting for each particle in the table above.
-      </p>
-      <particle-options
-        v-model="defaultOptions"
-      />
     </section>
 
     <section>
@@ -128,12 +128,9 @@
         particles:[
           {
             type: 'circle',
-            size: 10,
           },
           {
             type: 'rect',
-            size: 10,
-            dropRate: 10,
           },
         ],
 
