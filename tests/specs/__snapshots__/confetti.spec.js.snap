@@ -9,7 +9,7 @@ Confetti {
   "canvasId": null,
   "framesSinceDrop": 0,
   "killed": false,
-  "particles": null,
+  "particleManager": null,
   "particlesPerFrame": 0,
   "wind": 0,
   "windChange": 0.01,

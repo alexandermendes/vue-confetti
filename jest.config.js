@@ -7,6 +7,8 @@ module.exports = {
     'jest-canvas-mock',
   ],
 
+  clearMocks: true,
+
   coverageThreshold: {
     global: {
       branches: 90,

@@ -63,13 +63,23 @@ The following options can be passed to `$confetti.start()` or `$confetti.update(
 
 | Property          | Type   | Description                                                               | Default   |
 |-------------------|--------|---------------------------------------------------------------------------|-----------|
-| shape             | String | The shape of the confetti (`'circle'`, `'rect'`, `'heart'` or `'image'`). | 'circle'  |
-| size              | Number | The size of the particles (should be a positive number).                  | 10        |
-| dropRate          | Number | The speed at which the particles fall.                                    | 10        |
-| colors            | Array  | The confetti colors.                                                      | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
-| image             | String | The path to a custom image or SVG to use as the particle. Note that `shape` must be set to `image`. | null |
+| particles         | Array  | The settings for each particle type (see below).                          | 10        |
+| defaultType       | String | The default particle type.                                                | 'circle'  |
+| defaultSize       | Number | The default size of all particles (should be a positive number).          | 10        |
+| defaultDropRate   | Number | The default speed at which the particles fall.                            | 10        |
+| defaultColors     | Array  | The default particle colors.                                              | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
 | canvasId          | String | The ID for a custom canvas element (the default is to append a canvas to the `<body>` element).     | null |
 | particlesPerFrame | Number | The number of particles to drop per animation frame.                      | 2         |
+
+The following options are available for each item in `particles`:
+
+| Property          | Type   | Description                                                               | Default   |
+|-------------------|--------|---------------------------------------------------------------------------|-----------|
+| type              | String | The type of particle (`'circle'`, `'rect'`, `'heart'` or `'image'`).      | 'circle'  |
+| size              | Number | The size of the particles (should be a positive number).                  | 10        |
+| dropRate          | Number | The speed at which the particles fall.                                    | 10        |
+| colors            | Array  | The particle colors.                                                      | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
+| url               | String | The path to a custom image or SVG to use as the particle. Note that `shape` must be set to `image`. | null |
 
 ### Examples
 
@@ -77,7 +87,11 @@ The following options can be passed to `$confetti.start()` or `$confetti.update(
 
 ``` js
 $confetti.start({
-  shape: 'heart',
+  particles: [
+    {
+      type: 'heart',
+    }
+  ],
   colors: [
     'red',
     'pink',
@@ -90,8 +104,12 @@ $confetti.start({
 
 ``` js
 $confetti.start({
-  shape: 'image',
-  image: 'http://placekitten.com/50/50',
+  particles: [
+    {
+      type: 'image',
+      url: 'http://placekitten.com/50/50',
+    },
+  ],
 });
 ```
 
@@ -103,13 +121,33 @@ $confetti.start({
 });
 ```
 
-#### Alternative particles per frame, drop rate and size:
+#### Less particles per frame:
 
 ``` js
 $confetti.start({
   particlesPerFrame: 0.25,
-  dropRate: 3,
-  size: 5,
+});
+```
+
+#### Multiple particle types:
+
+``` js
+$confetti.start({
+  particles: [
+    {
+      type: 'heart',
+    },
+    {
+      type: 'circle',
+    },
+    {
+      type: 'image',
+      size: 15,
+      url: 'http://example.org/my-icon.svg',
+    },
+  ],
+  defaultDropRate: 5,
+  defaultSize: 5,
 });
 ```
 
