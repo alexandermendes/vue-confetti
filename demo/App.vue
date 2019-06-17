@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div id="app">
+
     <header class="header">
       <a
         class="button button--text button--small"
@@ -10,6 +11,7 @@
       <button class="button button--secondary button--small" @click="start">Start</button>
       <button class="button button--secondary button--small" @click="stop">Stop</button>
     </header>
+
     <main>
       <div class="masthead">
         <h1 class="masthead__title">Vue Confetti</h1>

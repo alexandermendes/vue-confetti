@@ -7,6 +7,10 @@ $color-light-grey:     #e4e4e4;
 $heading-font-family:  'Roboto', sans-serif;
 $body-font-family:     'Open Sans', sans-serif;
 
+@function spacing($n, $unit: 'px') {
+  @return #{$n * 8}#{$unit};
+}
+
 main {
   margin: 0 5%;
   font-family: $body-font-family;
@@ -15,13 +19,13 @@ main {
 }
 
 section {
-  margin-bottom: 40px;
+  margin-bottom: spacing(5);
 }
 
 .header {
   width: 90%;
   padding: 0 5%;
-  min-height: 50px;
+  min-height: spacing(6);
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -36,16 +40,16 @@ section {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 300px;
+  min-height: spacing(40);
 
   &__title {
     font-family: $heading-font-family;
     font-size: 2.5em;
-    margin-bottom: 10px;
+    margin-bottom: spacing(2);
   }
 
   &__badge {
-    margin-bottom: 20px;
+    margin-bottom: spacing(3);
   }
 }
 
@@ -53,11 +57,11 @@ section {
   width: 100%;
   border-collapse: collapse;
   border: 1px solid $color-light-grey;
-  margin-bottom: 10px;
+  margin-bottom: spacing(2);
 
   .table__cell {
     border-bottom: 1px solid $color-light-grey;
-    padding: 10px 15px;
+    padding: spacing(2) spacing(3);
     text-align: center;
     line-height: 1.4;
 
@@ -69,7 +73,7 @@ section {
   }
 
   &__buttons {
-    margin-top: 10px;
+    margin-top: spacing(2);
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
@@ -81,7 +85,7 @@ section {
   border-width: 2px;
   border-color: $color-primary;
   border-radius: 3px;
-  padding: 8px 20px;
+  padding: spacing(1) spacing(2);
   color: #fff;
   user-select: none;
   transition: all 250ms;
@@ -117,7 +121,7 @@ section {
   }
 
   &--small {
-    padding: 5px 10px;
+    padding: spacing(0.5) spacing(1);
     font-size: 0.8em;
   }
 }
@@ -130,23 +134,23 @@ section {
   font-family: $heading-font-family;
   font-size: 1.5em;
   margin: 0;
-  margin-bottom: 10px;
+  margin-bottom: spacing(1);
 }
 
 .content {
   text-align: left;
   margin: 0;
-  margin-bottom: 20px;
+  margin-bottom: spacing(2);
 }
 
 .input-group {
-  margin-bottom: 5px;
+  margin-bottom: spacing(1);
 }
 
 .input {
   width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
+  padding: spacing(1.5) spacing(2);
+  margin: spacing(1) 0;
   display: inline-block;
   border: 1px solid darken($color-light-grey, 10%);
   border-radius: 4px;
@@ -172,7 +176,7 @@ section {
   &__content {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
+    padding: spacing(3);
     border: 1px solid $color-light-grey;
     width: 80%;
   }
@@ -180,7 +184,7 @@ section {
   &__close {
     color: $color-grey;
     float: right;
-    font-size: 28px;
+    font-size: spacing(3);
     font-weight: bold;
 
     &:hover,
