@@ -44,8 +44,15 @@ npm install vue-confetti --save
 
       love() {
         this.$confetti.update({
-          shape: 'heart',
-          colors: [
+          particles: [
+            {
+              type: 'heart',
+            },
+            {
+              type: 'circle',
+            },
+          ],
+          defaultColors: [
             'red',
             'pink',
             '#ba0000'
@@ -71,7 +78,7 @@ The following options can be passed to `$confetti.start()` or `$confetti.update(
 | canvasId          | String | The ID for a custom canvas element (the default is to append a canvas to the `<body>` element).     | null |
 | particlesPerFrame | Number | The number of particles to drop per animation frame.                      | 2         |
 
-The following options are available for each item in `particles`:
+The following options can be passed to each item in `particles`:
 
 | Property          | Type   | Description                                                               | Default   |
 |-------------------|--------|---------------------------------------------------------------------------|-----------|
@@ -79,7 +86,7 @@ The following options are available for each item in `particles`:
 | size              | Number | The size of the particles (should be a positive number).                  | 10        |
 | dropRate          | Number | The speed at which the particles fall.                                    | 10        |
 | colors            | Array  | The particle colors.                                                      | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
-| url               | String | The path to a custom image or SVG to use as the particle. Note that `shape` must be set to `image`. | null |
+| url               | String | The path to a custom image or SVG to use as the particle. Note that `type` must be set to `image`. | null |
 
 ### Examples
 
@@ -92,7 +99,7 @@ $confetti.start({
       type: 'heart',
     }
   ],
-  colors: [
+  defaultColors: [
     'red',
     'pink',
     '#ba0000',
@@ -136,9 +143,16 @@ $confetti.start({
   particles: [
     {
       type: 'heart',
+      colors: [
+        'red',
+        'pink',
+      ],
     },
     {
       type: 'circle',
+      colors: [
+        '#ba0000',
+      ],
     },
     {
       type: 'image',
