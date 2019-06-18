@@ -22,7 +22,7 @@ export default class Confetti {
     this.canvasId = null;
     this.W = 0;
     this.H = 0;
-    this.particles = null;
+    this.particleManager = null;
     this.particlesPerFrame = 0; // max particles dropped per frame
     this.wind = 0;
     this.windSpeed = 1;
@@ -32,7 +32,7 @@ export default class Confetti {
     this.animationId = null;
   }
 
-  particleOptions(opts) {
+  getParticleOptions(opts) {
     const options = {
       canvas: this.canvas,
       W: this.W,
@@ -54,8 +54,8 @@ export default class Confetti {
    *   The particle options.
    */
   createParticles(opts = {}) {
-    const particleOpts = this.particleOptions(opts);
-    this.particles = new ParticleManager(particleOpts);
+    const particleOpts = this.getParticleOptions(opts);
+    this.particleManager = new ParticleManager(particleOpts);
   }
 
   /**
@@ -106,9 +106,9 @@ export default class Confetti {
 
     this.setParticlesPerFrame(opts);
 
-    if (this.particles) {
-      this.particles.particleOptions = this.particleOptions(opts);
-      this.particles.refresh();
+    if (this.particleManager) {
+      this.particleManager.particleOptions = this.getParticleOptions(opts);
+      this.particleManager.refresh();
     }
   }
 
@@ -133,21 +133,21 @@ export default class Confetti {
     this.canvas.clear();
 
     this.windSpeed = Math.sin(time / 8000) * this.windSpeedMax;
-    this.wind = this.particles.particleOptions.wind += this.windChange; // eslint-disable-line
+    this.wind = this.particleManager.particleOptions.wind += this.windChange; // eslint-disable-line
 
     let numberToAdd = this.framesSinceDrop * this.particlesPerFrame;
 
     while (numberToAdd >= 1) {
-      this.particles.add();
+      this.particleManager.add();
       numberToAdd -= 1;
       this.framesSinceDrop = 0;
     }
 
-    this.particles.update();
-    this.particles.draw();
+    this.particleManager.update();
+    this.particleManager.draw();
 
     // Stop calling if no particles left in view (i.e. it's been stopped)
-    if (!this.killed || this.particles.items.length) {
+    if (!this.killed || this.particleManager.items.length) {
       this.animationId = requestAnimationFrame(this.mainLoop.bind(this));
     }
 

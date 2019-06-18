@@ -43,16 +43,31 @@ export default class ParticleFactory {
   }
 
   /**
-   * Create a particle.
+   * Get a random particle from the list of available particles.
    * @param {Object} options
    *   The particle options.
    */
-  create(options) {
-    const defaults = {
-      shape: 'circle',
-      size: 10,
-      dropRate: 10,
-      colors: [
+  getRandomParticle(options = {}) {
+    const particles = options.particles || [];
+
+    if (particles.length < 1) {
+      return {};
+    }
+
+    return particles[Math.floor(Math.random() * particles.length)];
+  }
+
+  /**
+   * Get the particle defaults.
+   * @param {Object} options
+   *   The particle options.
+   */
+  getDefaults(options = {}) {
+    return {
+      type: options.defaultType || 'circle',
+      size: options.defaultSize || 10,
+      dropRate: options.defaultDropRate || 10,
+      colors: options.defaultColors || [
         'DodgerBlue',
         'OliveDrab',
         'Gold',
@@ -66,31 +81,41 @@ export default class ParticleFactory {
         'Chocolate',
         'Crimson',
       ],
-      image: null,
+      url: null,
     };
+  }
 
-    const opts = Object.assign(defaults, options);
+  /**
+   * Create a particle.
+   * @param {Object} options
+   *   The particle options.
+   */
+  create(options) {
+    const defaults = this.getDefaults(options);
+    const particle = this.getRandomParticle(options);
+
+    const opts = Object.assign(defaults, particle);
 
     // Set a random color from the array
     const colorIndex = getRandomNumber(0, opts.colors.length, true);
     opts.color = opts.colors[colorIndex];
 
-    if (opts.shape === 'circle') {
+    if (opts.type === 'circle') {
       return new CircleParticle(opts);
     }
 
-    if (opts.shape === 'rect') {
+    if (opts.type === 'rect') {
       return new RectParticle(opts);
     }
 
-    if (opts.shape === 'heart') {
+    if (opts.type === 'heart') {
       return new HeartParticle(opts);
     }
 
-    if (opts.shape === 'image') {
-      return new ImageParticle(opts, this.getImageElement(opts.image));
+    if (opts.type === 'image') {
+      return new ImageParticle(opts, this.getImageElement(opts.url));
     }
 
-    throw Error(`Unkown particle shape: "${opts.shape}"`);
+    throw Error(`Unknown particle type: "${opts.type}"`);
   }
 }

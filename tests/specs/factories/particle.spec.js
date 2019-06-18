@@ -19,7 +19,7 @@ describe('Particle factory', () => {
     factory = new ParticleFactory();
 
     defaults = {
-      shape: 'circle',
+      type: 'circle',
       size: 10,
       dropRate: 10,
       colors: [
@@ -36,12 +36,38 @@ describe('Particle factory', () => {
         'Chocolate',
         'Crimson',
       ],
-      image: null,
+      url: null,
     };
 
     getRandomNumber.mockReturnValue(1);
 
     defaultParticleOpts = { ...defaults, color: defaults.colors[1] };
+  });
+
+  describe('getDefaults', () => {
+    it('returns the expected defaults', () => {
+      expect(factory.getDefaults()).toEqual(defaults);
+    });
+
+    it('prefers custom defaults', () => {
+      const opts = {
+        defaultType: 'foo',
+        defaultSize: 42,
+        defaultDropRate: 42,
+        defaultColors: [
+          '#c0ffe',
+        ],
+      };
+
+      expect(factory.getDefaults(opts)).toEqual({
+        type: 'foo',
+        dropRate: opts.defaultDropRate,
+        size: opts.defaultSize,
+        dropRate: opts.defaultDropRate,
+        colors: opts.defaultColors,
+        url: null,
+      });
+    });
   });
 
   describe('create', () => {
@@ -55,45 +81,96 @@ describe('Particle factory', () => {
 
     it('creates a RectParticle if shape is rect', () => {
       const opts = {
-        shape: 'rect',
+        particles: [
+          {
+            type: 'rect',
+          },
+        ],
       };
       const particle = factory.create(opts);
 
       expect(particle).toBeInstanceOf(RectParticle);
       expect(RectParticle).toHaveBeenCalledTimes(1);
-      expect(RectParticle).toHaveBeenCalledWith({ ...defaultParticleOpts, ...opts });
+      expect(RectParticle).toHaveBeenCalledWith({
+        ...defaultParticleOpts,
+        ...opts.particles[0],
+      });
     });
 
-    it('creates a HeartParticle if shape is heart', () => {
+    it('creates a HeartParticle if type is heart', () => {
       const opts = {
-        shape: 'heart',
+        particles: [
+          {
+            type: 'heart',
+          },
+        ],
       };
       const particle = factory.create(opts);
 
       expect(particle).toBeInstanceOf(HeartParticle);
       expect(HeartParticle).toHaveBeenCalledTimes(1);
-      expect(HeartParticle).toHaveBeenCalledWith({ ...defaultParticleOpts, ...opts });
+      expect(HeartParticle).toHaveBeenCalledWith({
+        ...defaultParticleOpts,
+        ...opts.particles[0]
+      });
     });
 
-    it('creates an ImageParticle if shape is image', () => {
+    it('creates an ImageParticle if type is image', () => {
       const opts = {
-        shape: 'image',
-        image: '/path/to/img.jpg',
+        particles: [
+          {
+            type: 'image',
+            url: '/path/to/img.jpg',
+          },
+        ],
       };
       factory.getImageElement = jest.fn(() => 'mock-image');
       const particle = factory.create(opts);
 
       expect(particle).toBeInstanceOf(ImageParticle);
       expect(ImageParticle).toHaveBeenCalledTimes(1);
-      expect(ImageParticle).toHaveBeenCalledWith({ ...defaultParticleOpts, ...opts }, 'mock-image');
+      expect(ImageParticle).toHaveBeenCalledWith({
+        ...defaultParticleOpts,
+        ...opts.particles[0]
+      }, 'mock-image');
     });
 
-    it('throws if an invalid shape is given', () => {
+    it('throws if an invalid type is given', () => {
       const opts = {
-        shape: 'unknown',
+        particles: [
+          {
+            type: 'unknown',
+          },
+        ],
       };
 
-      expect(() => factory.create(opts)).toThrow(`Unkown particle shape: "${opts.shape}"`);
+      expect(() => factory.create(opts)).toThrow('Unknown particle type: "unknown"');
+    });
+
+    it('creates multiple particle types', () => {
+      factory.getRandomParticle = jest.fn();
+
+      factory.getRandomParticle.mockReturnValueOnce({
+        type: 'circle',
+      });
+
+      factory.create({});
+
+      factory.getRandomParticle.mockReturnValueOnce({
+        type: 'rect',
+      });
+
+      factory.create({});
+
+      factory.getRandomParticle.mockReturnValueOnce({
+        type: 'heart',
+      });
+
+      factory.create({});
+
+      expect(CircleParticle).toHaveBeenCalledTimes(1);
+      expect(RectParticle).toHaveBeenCalledTimes(1);
+      expect(HeartParticle).toHaveBeenCalledTimes(1);
     });
   });
 
