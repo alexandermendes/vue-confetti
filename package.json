@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint src",
-    "pretest": "npm run lint",
+    "pretest": "yarn run lint",
     "test": "jest",
     "coverage": "jest --coverage",
     "dev": "webpack --watch",

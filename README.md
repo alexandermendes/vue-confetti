@@ -12,7 +12,7 @@
 ## Installation
 
 ```
-npm install vue-confetti --save
+yarn install vue-confetti --save
 ```
 
 ## Usage
@@ -171,16 +171,16 @@ The following scripts are available for local development:
 
 ```bash
 # test
-npm run test
+yarn run test
 
 # run with webpack watch
-npm run dev
+yarn run dev
 
 # build for production
-npm run build
+yarn run build
 
 # serve the demo page (watch for changes from another terminal)
-npm run demo
+yarn run demo
 ```
 
 Note that vue-confetti enforces

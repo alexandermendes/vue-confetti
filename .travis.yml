@@ -15,9 +15,9 @@ stages:
 jobs:
   include:
     - stage: test
-      script: npm install && npm run test
+      script: yarn install && yarn run test
     - stage: deploy
-      script: npm install && npm run build
+      script: yarn install && yarn run build
       deploy:
         provider: pages
         local-dir: dist
@@ -25,4 +25,4 @@ jobs:
         github-token: $GITHUB_TOKEN
     - stage: release
       if: branch = master
-      script: npm install && npm run build && npx semantic-release
+      script: yarn install && yarn run build && npx semantic-release

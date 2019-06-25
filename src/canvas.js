@@ -8,9 +8,22 @@ export default class Canvas {
    *   An optional CSS ID pointing to a canvas to override the default.
    */
   constructor(canvasId) {
-    this.canvas = canvasId ? document.getElementById(canvasId) : Canvas.createDefaultCanvas();
-    this.ctx = this.canvas.getContext('2d');
+    const defaultCanvasId = 'confetti-canvas';
+    const customCanvas = document.getElementById(canvasId);
+
     this.isDefault = canvasId === null || typeof canvasId === 'undefined';
+
+    if (!this.isDefault && !customCanvas) {
+      throw new Error(`No element found with ID "${canvasId}"`);
+    }
+
+    this.canvas = customCanvas || Canvas.createDefaultCanvas(defaultCanvasId);
+
+    if (!(this.canvas instanceof HTMLCanvasElement)) {
+      throw new Error(`Element with ID "${defaultCanvasId}" is not a valid HTMLCanvasElement`);
+    }
+
+    this.ctx = this.canvas.getContext('2d');
   }
 
   /**
@@ -18,7 +31,7 @@ export default class Canvas {
    * @returns {HTMLCanvasElement}
    *   A full-screen canvas.
    */
-  static createDefaultCanvas() {
+  static createDefaultCanvas(id) {
     const canvas = document.createElement('canvas');
     canvas.style.display = 'block';
     canvas.style.position = 'fixed';
@@ -26,7 +39,7 @@ export default class Canvas {
     canvas.style.top = 0;
     canvas.style.width = '100vw';
     canvas.style.height = '100vh';
-    canvas.id = 'confetti-canvas';
+    canvas.id = id;
     document.querySelector('body').appendChild(canvas);
     return canvas;
   }
