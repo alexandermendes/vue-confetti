@@ -22,9 +22,10 @@ describe('Canvas', () => {
     });
 
     it('creates a canvas with the expected ID', () => {
-      const canvas = Canvas.createDefaultCanvas();
+      const id = 'foobar';
+      const canvas = Canvas.createDefaultCanvas(id);
 
-      expect(canvas.id).toEqual('confetti-canvas');
+      expect(canvas.id).toEqual(id);
     });
 
     it('appends the canvas to the document body', () => {

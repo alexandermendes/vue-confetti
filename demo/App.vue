@@ -168,7 +168,7 @@
           defaultType: this.defaultOptions.type,
           defaultSize: this.defaultOptions.size,
           defaultDropRate: this.defaultOptions.dropRate,
-          // canvasId: this.canvasId,
+          canvasId: this.canvasId,
           particlesPerFrame: this.particlesPerFrame,
         }
       },
