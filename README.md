@@ -12,7 +12,7 @@
 ## Installation
 
 ```
-yarn install vue-confetti --save
+yarn add vue-confetti
 ```
 
 ## Usage
@@ -37,11 +37,11 @@ yarn install vue-confetti --save
       start() {
         this.$confetti.start();
       },
-
+      
       stop() {
         this.$confetti.stop();
-      }
-
+      },
+      
       love() {
         this.$confetti.update({
           particles: [
