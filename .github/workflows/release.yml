@@ -16,6 +16,7 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interative
       - run: yarn run test --ci
       - run: yarn run build
+      - run: git checkout master
       - run: npx semantic-release
         env:
           GIT_BRANCH: master
