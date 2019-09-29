@@ -37,11 +37,11 @@ yarn add vue-confetti
       start() {
         this.$confetti.start();
       },
-      
+
       stop() {
         this.$confetti.stop();
       },
-      
+
       love() {
         this.$confetti.update({
           particles: [
@@ -62,6 +62,32 @@ yarn add vue-confetti
     }
   }
 </script>
+```
+
+### Usage with Nuxt
+
+As this plugin relies on browser globals, such as `window`, it will not work
+when server-side rendered. The following example shows how to get this to
+add as a client-side only plugin with [Nuxt](https://nuxtjs.org/).
+
+Register vue-confetti in your [Nuxt plugins](https://nuxtjs.org/guide/plugins/) folder
+(e.g. at `your-repo/plugins/vue-confetti`):
+
+```js
+import Vue from 'vue';
+import VueConfetti from 'vue-confetti';
+
+Vue.use(VueConfetti);
+```
+
+Register the plugin in your [Nuxt config](https://nuxtjs.org/guide/configuration):
+
+```js
+export default {
+  plugins: [
+    { src: '~/plugins/vue-confetti.js', mode: 'client' },
+  ],
+};
 ```
 
 ## Configuration
@@ -188,3 +214,4 @@ Note that vue-confetti enforces
 to help automate the release process. Whenever code is merged into master the next
 [semantic version](https://semver.org/) number is automatically determined, a
 changelog generated and the release published.
+
