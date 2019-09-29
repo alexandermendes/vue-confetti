@@ -9,14 +9,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@master
+        with:
+          ref: master
       - uses: actions/setup-node@v1
         with:
           node-version: 10
       - run: yarn install --frozen-lockfile --non-interative
       - run: yarn run test --ci
       - run: yarn run build
-      - run: git checkout master
       - run: npx semantic-release
-        env:
-          GIT_BRANCH: master
