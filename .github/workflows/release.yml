@@ -16,7 +16,4 @@ jobs:
       - run: yarn install --frozen-lockfile --non-interative
       - run: yarn run test --ci
       - run: yarn run build
-      - run: git rev-parse --abbrev-ref HEAD
-      - run: git checkout master
-      - run: git rev-parse --abbrev-ref HEAD
-      - run: npx semantic-release
+      - run: git checkout master && npx semantic-release
