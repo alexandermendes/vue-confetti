@@ -13,11 +13,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10
-      - name: Build and Deploy
-        uses: JamesIves/github-pages-deploy-action@v2
+      - run: yarn install --frozen-lockfile --non-interactive
+      - run: yarn run build
+      - name: Deploy
+        uses: maxheld83/ghpages@v0.2.1
         env:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          BASE_BRANCH: master
-          BRANCH: gh-pages
-          FOLDER: dist
-          BUILD_SCRIPT: yarn install && yarn run build
+          BUILD_DIR: dist
+          GH_PAT: ${{ secrets.GH_PAT }}
