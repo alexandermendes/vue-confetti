@@ -63,7 +63,7 @@ export default class Confetti {
    * @param {Object} opts
    *   The particle options.
    */
-  start(opts) {
+  start(opts = {}) {
     if (!this.canvas || opts.canvasId !== this.canvasId) {
       this.canvas = new Canvas(opts.canvasId);
       this.canvasId = opts.canvasId;
