@@ -12,7 +12,8 @@
     "coverage": "jest --coverage",
     "dev": "webpack --watch",
     "build": "cross-env NODE_ENV=production webpack",
-    "demo": "http-server ./dist -c-1"
+    "demo": "http-server ./dist -c-1",
+    "release": "semantic-release"
   },
   "repository": {
     "type": "git",

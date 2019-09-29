@@ -25,4 +25,4 @@ jobs:
         github-token: $GITHUB_TOKEN
     - stage: release
       if: branch = master
-      script: yarn install && yarn run build && npx semantic-release
+      script: yarn install && yarn run build && yarn run semantic-release
