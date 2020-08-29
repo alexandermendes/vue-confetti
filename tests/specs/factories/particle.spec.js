@@ -217,6 +217,17 @@ describe('Particle factory', () => {
       expect(factory.cachedImages[source]).toEqual('mock-image');
       expect(factory.createImageElement).toHaveBeenCalledWith(source);
     });
+
+    it('caches multiple images', () => {
+      const imageA = factory.getImageElement('/img.jpg');
+      const imageB = factory.getImageElement('/another-img.jpg');
+      const imageC = factory.getImageElement('/img.jpg');
+      const imageD = factory.getImageElement('/another-img.jpg');
+
+      expect(imageA).toEqual(imageC);
+      expect(imageB).toEqual(imageD);
+      expect(imageA).not.toEqual(imageB);
+    });
   });
 
   describe('createImageElement', () => {
