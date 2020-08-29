@@ -180,7 +180,7 @@ describe('Particle factory', () => {
       const cachedImage = document.createElement('img');
       cachedImage.setAttribute('src', source);
 
-      factory.cachedImageList[source] = cachedImage;
+      factory.cachedImages[source] = cachedImage;
       factory.createImageElement = jest.fn();
 
       const image = factory.getImageElement(source);
@@ -192,13 +192,13 @@ describe('Particle factory', () => {
     it('creates and caches an image if nothing cached', () => {
       const source = '/path/to/img.jpg';
 
-      factory.cachedImageList = {};
+      factory.cachedImages = {};
       factory.createImageElement = jest.fn(() => 'mock-image');
 
       const image = factory.getImageElement(source);
 
       expect(image).toEqual('mock-image');
-      expect(factory.cachedImageList[source]).toEqual('mock-image');
+      expect(factory.cachedImages[source]).toEqual('mock-image');
       expect(factory.createImageElement).toHaveBeenCalledWith(source);
     });
 
@@ -208,13 +208,13 @@ describe('Particle factory', () => {
       const cachedImage = document.createElement('img');
       cachedImage.setAttribute('src', cachedSource);
 
-      factory.cachedImageList = { cachedSource: cachedImage };
+      factory.cachedImages = { cachedSource: cachedImage };
       factory.createImageElement = jest.fn(() => 'mock-image');
 
       const image = factory.getImageElement(source);
 
       expect(image).toEqual('mock-image');
-      expect(factory.cachedImageList[source]).toEqual('mock-image');
+      expect(factory.cachedImages[source]).toEqual('mock-image');
       expect(factory.createImageElement).toHaveBeenCalledWith(source);
     });
   });

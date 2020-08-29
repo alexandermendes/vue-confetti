@@ -15,7 +15,7 @@ import {
  */
 export default class ParticleFactory {
   constructor() {
-    this.cachedImageList = {};
+    this.cachedImages = {};
   }
 
   /**
@@ -35,10 +35,10 @@ export default class ParticleFactory {
    *   The path to the image.
    */
   getImageElement(imgSource) {
-    if (!this.cachedImageList[imgSource]) {
-      this.cachedImageList[imgSource] = this.createImageElement(imgSource);
+    if (!this.cachedImages[imgSource]) {
+      this.cachedImages[imgSource] = this.createImageElement(imgSource);
     }
-    return this.cachedImageList[imgSource];
+    return this.cachedImages[imgSource];
   }
 
   /**
