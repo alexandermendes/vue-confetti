@@ -142,9 +142,10 @@
         particles:[
           {
             type: 'circle',
-          },
-          {
-            type: 'rect',
+            colors: [
+              'red',
+              'pink',
+            ],
           },
         ],
 

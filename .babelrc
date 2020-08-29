@@ -1,5 +1,17 @@
 {
   "presets": [
-    "@babel/preset-env"
+    "vue",
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage",
+        "corejs": {
+          "version": 2
+        }
+      }
+    ],
+  ],
+  "plugins": [
+    "@babel/plugin-transform-runtime"
   ]
 }
