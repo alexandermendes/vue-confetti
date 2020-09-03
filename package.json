@@ -13,7 +13,8 @@
     "dev": "webpack --watch",
     "build": "cross-env NODE_ENV=production webpack",
     "demo": "http-server ./dist -c-1",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "prepare": "npm run build"
   },
   "repository": {
     "type": "git",
