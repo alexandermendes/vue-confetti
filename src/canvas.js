@@ -6,18 +6,29 @@ export default class Canvas {
    * Initialise.
    * @param {string} [canvasId]
    *   An optional CSS ID pointing to a canvas to override the default.
+   * @param {HTMLCanvasElement} [canvasId]
+   *   An optional HTMLCanvasElement to override the default.
    */
-  constructor(canvasId) {
+  constructor(canvasId, canvasElement) {
     const defaultCanvasId = 'confetti-canvas';
-    const customCanvas = document.getElementById(canvasId);
 
-    this.isDefault = canvasId === null || typeof canvasId === 'undefined';
+    if (canvasElement) {
+      if (canvasElement instanceof HTMLCanvasElement) {
+        this.canvas = canvasElement;
+      } else {
+        throw new Error('Element is not a valid HTMLCanvasElement');
+      }
+    } else {
+      const customCanvas = document.getElementById(canvasId);
 
-    if (!this.isDefault && !customCanvas) {
-      throw new Error(`No element found with ID "${canvasId}"`);
+      this.isDefault = canvasId === null || typeof canvasId === 'undefined';
+
+      if (!this.isDefault && !customCanvas) {
+        throw new Error(`No element found with ID "${canvasId}"`);
+      }
+
+      this.canvas = customCanvas || Canvas.createDefaultCanvas(defaultCanvasId);
     }
-
-    this.canvas = customCanvas || Canvas.createDefaultCanvas(defaultCanvasId);
 
     if (!(this.canvas instanceof HTMLCanvasElement)) {
       throw new Error(`Element with ID "${defaultCanvasId}" is not a valid HTMLCanvasElement`);
