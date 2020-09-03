@@ -7,6 +7,25 @@ describe('Canvas', () => {
     defaultCanvas = new Canvas();
   });
 
+  describe('use existing canvas', () => {
+    it('canvas by element reference', () => {
+      const canvasElm = document.createElement('canvas');
+      canvasElm.id = 'page-canvas';
+      const canvas = new Canvas(null, canvasElm);
+
+      expect(canvas.canvas.id).toEqual(canvasElm.id);
+    });
+
+    it('should throw an error when invalid canvas element is passed', () => {
+      const divElm = document.createElement('div');
+      divElm.id = 'page-canvas';
+
+      expect(() => {
+        new Canvas(null, divElm);
+      }).toThrow('Element is not a valid HTMLCanvasElement');
+    });
+  });
+
   describe('createDefaultCanvas', () => {
     it('creates a canvas with the expected styles', () => {
       const canvas = Canvas.createDefaultCanvas();

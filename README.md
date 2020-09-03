@@ -148,9 +148,17 @@ $confetti.start({
 
 #### Custom canvas:
 
+##### By id:
 ``` js
 $confetti.start({
   canvasId: 'my-custom-canvas',
+});
+```
+
+##### By element reference:
+``` js
+$confetti.start({
+  canvasElement: document.getElementById('my-custom-canvas'),
 });
 ```
 
