@@ -19,7 +19,7 @@ export default class Confetti {
     this.killed = false;
     this.framesSinceDrop = 0;
     this.canvas = null;
-    this.canvasId = null;
+    this.canvasEl = null;
     this.W = 0;
     this.H = 0;
     this.particleManager = null;
@@ -59,14 +59,44 @@ export default class Confetti {
   }
 
   /**
+   * Get a canvas element from the given options.
+   * @param {Object} opts
+   *   The particle options.
+   */
+  getCanvasElementFromOptions(opts) {
+    const { canvasId, canvasElement } = opts;
+    let canvasEl = canvasElement;
+
+    if (canvasElement && !(canvasElement instanceof HTMLCanvasElement)) {
+      throw new Error('Invalid options: canvasElement is not a valid HTMLCanvasElement');
+    }
+
+    if (canvasId && canvasElement) {
+      throw new Error('Invalid options: canvasId and canvasElement are mutually exclusive');
+    }
+
+    if (canvasId && !canvasEl) {
+      canvasEl = document.getElementById(canvasId);
+    }
+
+    if (canvasId && !(canvasEl instanceof HTMLCanvasElement)) {
+      throw new Error(`Invalid options: element with id "${canvasId}" is not a valid HTMLCanvasElement`);
+    }
+
+    return canvasEl;
+  }
+
+  /**
    * Start dropping confetti.
    * @param {Object} opts
    *   The particle options.
    */
   start(opts = {}) {
-    if (!this.canvas || opts.canvasId !== this.canvasId || opts.canvasElement) {
-      this.canvas = new Canvas(opts.canvasId, opts.canvasElement);
-      this.canvasId = opts.canvasId;
+    const canvasEl = this.getCanvasElementFromOptions(opts);
+
+    if (!this.canvas || canvasEl !== this.canvasEl) {
+      this.canvas = new Canvas(canvasEl);
+      this.canvasEl = canvasEl;
     }
 
     if (this.animationId) {
@@ -98,7 +128,9 @@ export default class Confetti {
    * Update the confetti options.
    */
   update(opts) {
-    if (this.canvas && opts.canvasId !== this.canvasId) {
+    const canvasEl = this.getCanvasElementFromOptions(opts);
+
+    if (this.canvas && canvasEl !== this.canvasEl) {
       this.stop();
       this.canvas.clear();
       this.start(opts);
