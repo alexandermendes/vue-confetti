@@ -6,7 +6,7 @@ Confetti {
   "W": 0,
   "animationId": null,
   "canvas": null,
-  "canvasId": null,
+  "canvasEl": null,
   "framesSinceDrop": 0,
   "killed": false,
   "particleManager": null,
