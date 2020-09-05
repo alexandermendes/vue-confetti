@@ -102,6 +102,7 @@ The following options can be passed to `$confetti.start()` or `$confetti.update(
 | defaultDropRate   | Number | The default speed at which the particles fall.                            | 10        |
 | defaultColors     | Array  | The default particle colors.                                              | ['DodgerBlue', 'OliveDrab', 'Gold', 'pink', 'SlateBlue', 'lightblue', 'Violet', 'PaleGreen', 'SteelBlue', 'SandyBrown', 'Chocolate', 'Crimson'] |
 | canvasId          | String | The ID for a custom canvas element (the default is to append a canvas to the `<body>` element).     | null |
+| canvasElement     | HTMLCanvasElement | The canvas element.     | null |
 | particlesPerFrame | Number | The number of particles to drop per animation frame.                      | 2         |
 
 The following options can be passed to each item in `particles`:
@@ -148,9 +149,17 @@ $confetti.start({
 
 #### Custom canvas:
 
+##### By id:
 ``` js
 $confetti.start({
   canvasId: 'my-custom-canvas',
+});
+```
+
+##### By element reference:
+``` js
+$confetti.start({
+  canvasElement: document.getElementById('my-custom-canvas'),
 });
 ```
 
