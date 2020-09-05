@@ -92,19 +92,14 @@ export default class Confetti {
    *   The particle options.
    */
   start(opts = {}) {
+    this.remove(); // clear any previous settings
+
     const canvasEl = this.getCanvasElementFromOptions(opts);
 
-    if (!this.canvas || canvasEl !== this.canvasEl) {
-      this.canvas = new Canvas(canvasEl);
-      this.canvasEl = canvasEl;
-    }
-
-    if (this.animationId) {
-      cancelAnimationFrame(this.animationId); // Cancel any previous loop
-    }
+    this.canvas = new Canvas(canvasEl);
+    this.canvasEl = canvasEl;
 
     this.createParticles(opts);
-    this.canvas.updateDimensions();
     this.setParticlesPerFrame(opts);
     this.animationId = requestAnimationFrame(this.mainLoop.bind(this));
   }
@@ -130,10 +125,10 @@ export default class Confetti {
   update(opts) {
     const canvasEl = this.getCanvasElementFromOptions(opts);
 
+    // Restart if a different canvas is given
     if (this.canvas && canvasEl !== this.canvasEl) {
-      this.stop();
-      this.canvas.clear();
       this.start(opts);
+      return;
     }
 
     this.setParticlesPerFrame(opts);
@@ -149,11 +144,15 @@ export default class Confetti {
    */
   remove() {
     this.stop();
+
     if (this.animationId) {
       cancelAnimationFrame(this.animationId);
     }
 
-    this.canvas.clear();
+    if (this.canvas) {
+      this.canvas.clear();
+    }
+
     this.setDefaults();
   }
 
