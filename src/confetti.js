@@ -100,15 +100,16 @@ export default class Confetti {
     this.canvasEl = canvasEl;
 
     this.createParticles(opts);
-    this.setParticlesPerFrame(opts);
+    this.setGlobalOptions(opts);
     this.animationId = requestAnimationFrame(this.mainLoop.bind(this));
   }
 
   /**
-   * Set the number of particles dropped per frame.
+   * Set the global options.
    */
-  setParticlesPerFrame(opts) {
+  setGlobalOptions(opts) {
     this.particlesPerFrame = opts.particlesPerFrame || 2;
+    this.windSpeedMax = opts.windSpeedMax || 1;
   }
 
   /**
@@ -131,7 +132,7 @@ export default class Confetti {
       return;
     }
 
-    this.setParticlesPerFrame(opts);
+    this.setGlobalOptions(opts);
 
     if (this.particleManager) {
       this.particleManager.particleOptions = this.getParticleOptions(opts);

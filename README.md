@@ -104,6 +104,7 @@ The following options can be passed to `$confetti.start()` or `$confetti.update(
 | canvasId          | String | The ID for a custom canvas element (the default is to append a canvas to the `<body>` element).     | null |
 | canvasElement     | HTMLCanvasElement | A custom canvas element (the default is to append a canvas to the `<body>` element).     | null |
 | particlesPerFrame | Number | The number of particles to drop per animation frame.                      | 2         |
+| windSpeedMax      | Number | The maximum wind speed (disabling the wind by setting to 0 can be useful for slower drop rates). | 1         |
 
 The following options can be passed to each item in `particles`:
 

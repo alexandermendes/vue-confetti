@@ -91,6 +91,21 @@
             step="1"
           >
         </div>
+        <div class="input-group">
+          <label for="wind-speed-max">
+            <small>Max wind speed:</small>
+          </label>
+          <input
+            v-model="windSpeedMax"
+            id="wind-speed-max"
+            class="input"
+            type="number"
+            min="0"
+            max="100"
+            step="1"
+          >
+        </div>
+
 
       </section>
 
@@ -150,6 +165,7 @@
 
         customCanvas: false,
         particlesPerFrame: 2,
+        windSpeedMax: 1,
         defaultOptions: {},
       };
     },
@@ -164,12 +180,12 @@
         return {
           particles: this.particles,
           customCanvas: false,
-          particlesPerFrame: 2,
           defaultType: this.defaultOptions.type,
           defaultSize: this.defaultOptions.size,
           defaultDropRate: this.defaultOptions.dropRate,
           canvasId: this.canvasId,
           particlesPerFrame: this.particlesPerFrame,
+          windSpeedMax: this.windSpeedMax,
         }
       },
 
