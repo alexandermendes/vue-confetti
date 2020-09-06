@@ -65,10 +65,10 @@ export default class BaseParticle {
       * 0.2 + 1
     ));
     this.y += (Math.cos(this.angle + this.d) + parseInt(this.dropRate, 10)) / 2;
-    this.x += Math.sin(this.angle);
-    this.x += Math.cos(
+
+    this.x += (Math.sin(this.angle) + Math.cos(
       this.wind + (this.d + this.x + this.y) * this.windPosCoef,
-    ) * this.windSpeedMax;
+    )) * this.windSpeedMax;
     this.y += Math.sin(
       this.wind + (this.d + this.x + this.y) * this.windPosCoef,
     ) * this.windSpeedMax;
