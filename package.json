@@ -28,9 +28,9 @@
     }
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.5",
+    "@babel/preset-env": "^7.14.5",
     "@commitlint/cli": "^7.5.1",
     "@commitlint/config-conventional": "^7.5.0",
     "@semantic-release/git": "^7.0.8",
