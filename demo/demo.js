@@ -1,12 +1,11 @@
+import { createApp } from 'vue';
 import App from './App.vue';
-import Vue from 'vue';
 import VueConfetti from '../src/index';
 
 import './styles.scss';
 
-Vue.use(VueConfetti);
+const app = createApp(App);
 
-new Vue({
-  el: '#app',
-  render: h => h(App),
-});
+app.use(VueConfetti);
+
+app.mount('#app');
