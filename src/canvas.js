@@ -16,7 +16,11 @@ export default class Canvas {
 
     this.isDefault = !canvasElement;
 
-    this.canvas = canvasElement || Canvas.createDefaultCanvas(defaultCanvasId);
+    this.canvas = (
+      canvasElement
+      || document.getElementById(defaultCanvasId)
+      || Canvas.createDefaultCanvas(defaultCanvasId)
+    );
 
     this.ctx = this.canvas.getContext('2d');
   }
