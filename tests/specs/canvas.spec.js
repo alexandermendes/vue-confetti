@@ -33,6 +33,15 @@ describe('Canvas', () => {
 
       expect(canvas.parentElement.tagName).toEqual('BODY');
     });
+
+    it('creates a canvas with the expected styles', () => {
+      Canvas.createDefaultCanvas();
+      Canvas.createDefaultCanvas();
+
+      const canvases = [...document.querySelectorAll('#confetti-canvas')]
+
+      expect(canvases).toHaveLength(1);
+    });
   });
 
   describe('width', () => {
