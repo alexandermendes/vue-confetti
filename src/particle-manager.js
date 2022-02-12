@@ -47,7 +47,7 @@ export default class ParticleManger {
    * Draw the particles currently in view.
    */
   draw() {
-    this.items.forEach(item => item.draw());
+    this.items.forEach((item) => item.draw());
   }
 
   /**
