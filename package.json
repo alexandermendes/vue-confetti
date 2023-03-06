@@ -59,7 +59,7 @@
     "node-sass": "^7.0.1",
     "normalize.css": "^8.0.1",
     "sass-loader": "^12.4.0",
-    "semantic-release": "^19.0.2",
+    "semantic-release": "^20.1.1",
     "style-loader": "^3.3.1",
     "terser-webpack-plugin": "^5.3.1",
     "vue": "^3.2.30",
